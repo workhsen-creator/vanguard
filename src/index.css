@@ -57,7 +57,3 @@ canvas {
   will-change: transform;
   transform: translateZ(0);
 }
-
-.text-primary {
-  color: #000000 !important;
-}
