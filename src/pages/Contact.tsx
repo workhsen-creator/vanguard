@@ -58,10 +58,10 @@ const Contact = () => {
                                     </motion.div>
                                 ) : (
                                     <motion.div key="form" className="space-y-8">
-                                        {state.errors && state.errors.length > 0 && (
+                                        {state.errors && state.errors.getFormErrors().length > 0 && (
                                             <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-lg">
                                                 <p className="text-red-400 text-sm font-mono">
-                                                    {state.errors.map((error: any) => error.message).join(', ')}
+                                                    {state.errors.getFormErrors().map((error) => error.message).join(', ')}
                                                 </p>
                                             </div>
                                         )}
