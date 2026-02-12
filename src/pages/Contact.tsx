@@ -149,21 +149,7 @@ const Contact = () => {
                             </div>
                         </div>
 
-                        {/* Newsletter */}
-                        <div className="bg-white/5 p-10 rounded-2xl border border-white/10">
-                            <h2 className="text-2xl font-bold mb-4 uppercase tracking-widest text-primary">Newsletter</h2>
-                            <p className="mb-8 text-secondary/60">Stay ahead of the curve with our weekly insights on PR & Innovation.</p>
-                            <div className="flex flex-col sm:flex-row gap-4">
-                                <input
-                                    type="email"
-                                    className="flex-1 bg-background border border-white/10 px-6 py-4 rounded-xl outline-none focus:border-primary transition-colors text-lg"
-                                    placeholder="your@email.com"
-                                />
-                                <button className="px-8 py-4 bg-white text-black font-bold uppercase tracking-widest rounded-xl hover:bg-primary transition-colors">
-                                    Join
-                                </button>
-                            </div>
-                        </div>
+
                     </motion.div>
                 </div>
             </div>
