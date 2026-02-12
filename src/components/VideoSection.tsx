@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 const VideoSection = () => {
     const videoRef = useRef<HTMLVideoElement>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     return (
         <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -14,12 +15,21 @@ const VideoSection = () => {
                     loop
                     muted
                     playsInline
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-opacity duration-1000"
+                    onLoadedData={() => setIsLoading(false)}
+                    style={{ opacity: isLoading ? 0 : 1 }}
                 >
                     {/* Video source */}
                     <source src="/background.mp4" type="video/mp4" />
-                    {/* Fallback for browsers that don't support video */}
                 </video>
+
+                {/* Loading State */}
+                {isLoading && (
+                    <div className="absolute inset-0 bg-background flex items-center justify-center z-10">
+                        <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                    </div>
+                )}
+
                 {/* Dark overlay for better text readability */}
                 <div className="absolute inset-0 bg-background/60" />
             </div>
