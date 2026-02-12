@@ -76,7 +76,7 @@ const Footer = () => {
                     className="flex justify-center gap-6 pt-6 border-t border-background/20 mb-8"
                 >
                     <a
-                        href="https://www.instagram.com/wearevanguard_?igsh=MWpkb3Y1OWxjOXRnNg=="
+                        href="https://www.instagram.com/lifeatvanguard.lb?igsh=MWpkb3Y1OWxjOXRnNg=="
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group flex flex-col items-center gap-1"

@@ -118,7 +118,7 @@ const Navbar = () => {
                             transition={{ delay: 0.5, duration: 1 }}
                             className="absolute bottom-10 left-10 md:left-20 flex gap-6 text-secondary/50"
                         >
-                            <a href="https://www.instagram.com/wearevanguard_?igsh=MWpkb3Y1OWxjOXRnNg==" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors cursor-pointer" aria-label="Instagram">
+                            <a href="https://www.instagram.com/lifeatvanguard.lb?igsh=MWpkb3Y1OWxjOXRnNg==" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors cursor-pointer" aria-label="Instagram">
                                 <Instagram size={32} />
                             </a>
                             <a href="https://www.linkedin.com/company/the-vanguard-studio/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors cursor-pointer" aria-label="LinkedIn">
