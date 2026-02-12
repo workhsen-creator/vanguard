@@ -140,11 +140,7 @@ const Contact = () => {
                                     <p className="text-secondary/60">Beirut Central District</p>
                                     <p className="text-secondary/60 text-sm">Lebanon</p>
                                 </div>
-                                <div className="p-6 border border-white/5 rounded-xl hover:border-primary/20 transition-colors">
-                                    <h3 className="font-bold text-white mb-2 uppercase tracking-tighter">Qatar</h3>
-                                    <p className="text-secondary/60">Doha Business Hub</p>
-                                    <p className="text-secondary/60 text-sm">Qatar</p>
-                                </div>
+
                                 <div className="p-6 border border-white/5 rounded-xl hover:border-primary/20 transition-colors">
                                     <h3 className="font-bold text-white mb-2 uppercase tracking-tighter">Iraq</h3>
                                     <p className="text-secondary/60">Baghdad Innovation Center</p>
