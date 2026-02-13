@@ -39,7 +39,7 @@ const Expertise = () => {
     const [activeTab, setActiveTab] = useState(0);
 
     return (
-        <div className="min-h-screen bg-background text-secondary">
+        <div className="min-h-screen bg-transparent text-secondary">
             <div className="pt-32 px-6 md:px-12 lg:px-24 max-w-[1800px] mx-auto min-h-screen flex flex-col">
 
                 {/* Page Header */}
