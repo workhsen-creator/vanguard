@@ -90,7 +90,7 @@ const Expertise = () => {
                                 exit={{ opacity: 0, scale: 0.8 }}
                                 transition={{ duration: 0.5 }}
                             >
-                                <TechCircle isActive={true} />
+                                <TechCircle isActive={true} title={services[activeTab].title} />
                             </motion.div>
                         </AnimatePresence>
                     </div>
@@ -105,9 +105,7 @@ const Expertise = () => {
                                 exit={{ opacity: 0, x: -20 }}
                                 transition={{ duration: 0.5 }}
                             >
-                                <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tight mb-8 text-white">
-                                    {services[activeTab].title}
-                                </h2>
+
                                 <p className="text-xl md:text-2xl leading-relaxed text-secondary/80 font-light mb-12">
                                     {services[activeTab].description}
                                 </p>
