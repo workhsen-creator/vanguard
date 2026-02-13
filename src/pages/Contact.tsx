@@ -43,7 +43,7 @@ const Contact = () => {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.2, duration: 0.8 }}
                     >
-                        <form onSubmit={handleSubmit} className="space-y-12">
+                        <form onSubmit={handleSubmit} className="space-y-16">
                             {/* Honeypot Spam Protection */}
                             <input type="text" name="_gotcha" style={{ display: 'none' }} />
 
@@ -64,7 +64,7 @@ const Contact = () => {
                                             <input
                                                 type="text"
                                                 name="name"
-                                                className="w-full bg-transparent border-b border-white/20 py-6 text-xl md:text-2xl text-secondary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-white/20"
+                                                className="w-full bg-transparent border-b border-white/20 py-8 text-xl md:text-2xl text-secondary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-white/20"
                                                 placeholder="Name"
                                                 required
                                             />
@@ -76,7 +76,7 @@ const Contact = () => {
                                             <input
                                                 type="email"
                                                 name="email"
-                                                className="w-full bg-transparent border-b border-white/20 py-6 text-xl md:text-2xl text-secondary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-white/20"
+                                                className="w-full bg-transparent border-b border-white/20 py-8 text-xl md:text-2xl text-secondary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-white/20"
                                                 placeholder="Email"
                                                 required
                                             />
@@ -88,7 +88,7 @@ const Contact = () => {
                                             <textarea
                                                 name="message"
                                                 rows={1}
-                                                className="w-full bg-transparent border-b border-white/20 py-6 text-xl md:text-2xl text-secondary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-white/20 resize-none min-h-[80px]"
+                                                className="w-full bg-transparent border-b border-white/20 py-8 text-xl md:text-2xl text-secondary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-white/20 resize-none min-h-[80px]"
                                                 placeholder="Message"
                                                 required
                                             />
@@ -181,12 +181,12 @@ const Contact = () => {
                 className="py-32 px-6 md:px-20 lg:px-32 bg-transparent border-t border-white/5"
             >
                 <div className="max-w-[1200px] mx-auto">
-                    <div className="flex flex-col items-start gap-12">
+                    <div className="flex flex-col items-start gap-6">
                         <h2 className="text-2xl md:text-3xl font-light text-white tracking-wide">
                             Welcome to a world of <span className="text-primary italic">potential</span>
                         </h2>
 
-                        <div className="flex items-center gap-16 md:gap-24 text-xs uppercase tracking-[0.3em] text-secondary/60 font-medium">
+                        <div className="flex items-center gap-6 md:gap-8 text-xs uppercase tracking-[0.3em] text-secondary/60 font-medium">
                             <span className="hover:text-primary transition-colors duration-300">Lebanon</span>
                             <span className="text-primary/40">•</span>
                             <span className="hover:text-primary transition-colors duration-300">Qatar</span>
