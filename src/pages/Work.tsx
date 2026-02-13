@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import Navbar from '../components/Navbar';
@@ -40,14 +40,8 @@ const projects = [
     }
 ];
 
-const ProjectItem = ({ project, index }: { project: typeof projects[0], index: number }) => {
+const ProjectItem = ({ project }: { project: typeof projects[0] }) => {
     const ref = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start end", "end start"]
-    });
-
-    const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
     const [isHovered, setIsHovered] = useState(false);
 
     return (
@@ -128,16 +122,13 @@ const Work = () => {
 
                 {/* Projects List */}
                 <div className="max-w-[1800px] mx-auto">
-                    {projects.map((project, index) => (
-                        <ProjectItem key={project.id} project={project} index={index} />
+                    {projects.map((project) => (
+                        <ProjectItem key={project.id} project={project} />
                     ))}
                 </div>
 
                 {/* Bottom CTA */}
-                <div className="mt-40 text-center">
-                    <p className="text-secondary/40 uppercase tracking-widest text-sm mb-4">More Coming Soon</p>
-                    <div className="h-20 w-[1px] bg-gradient-to-b from-secondary/20 to-transparent mx-auto" />
-                </div>
+
             </main>
         </div>
     );
