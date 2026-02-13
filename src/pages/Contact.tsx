@@ -164,7 +164,7 @@ const Contact = () => {
                                     <div className="flex items-start gap-4 text-secondary/70">
                                         <MapPin size={18} className="text-primary/70 mt-1 shrink-0" />
                                         <div>
-                                            <p className="text-lg text-white">Beirut Central District</p>
+                                            <p className="text-lg text-white">Beirut</p>
                                             <p className="text-sm opacity-60">Lebanon (HQ)</p>
                                         </div>
                                     </div>
