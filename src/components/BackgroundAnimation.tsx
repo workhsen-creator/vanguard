@@ -30,7 +30,7 @@ const BackgroundAnimation = () => {
             time += 0.005; // Slow movement
 
             // Clear canvas with deep black and slight trail effect
-            ctx.fillStyle = '#0a0a0a';
+            ctx.fillStyle = '#262626';
             ctx.fillRect(0, 0, width, height);
 
             ctx.lineWidth = 2;
