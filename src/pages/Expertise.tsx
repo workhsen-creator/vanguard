@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 import { services, sectors } from '../data/services';
 import { ArrowUpRight } from 'lucide-react';
 
-const TechCircle = ({ isActive }: { isActive: boolean }) => {
+const TechCircle = ({ isActive, title }: { isActive: boolean; title: string }) => {
     return (
         <div className="relative w-64 h-64 md:w-96 md:h-96 flex items-center justify-center">
             {/* Outer Ring */}
@@ -29,8 +29,13 @@ const TechCircle = ({ isActive }: { isActive: boolean }) => {
                 className="absolute inset-12 border-2 border-primary/50 rounded-full"
             />
 
-            {/* Core */}
-            <div className="w-4 h-4 bg-primary rounded-full shadow-[0_0_20px_rgba(238,126,75,0.8)]" />
+            {/* Core & Title */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center z-10 p-8">
+                <div className="w-3 h-3 md:w-4 md:h-4 bg-primary rounded-full shadow-[0_0_20px_rgba(238,126,75,0.8)] mb-4 md:mb-6" />
+                <h3 className="text-xl md:text-3xl font-bold text-white text-center leading-tight tracking-tight">
+                    {title}
+                </h3>
+            </div>
         </div>
     );
 };
