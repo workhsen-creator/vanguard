@@ -181,12 +181,12 @@ const Contact = () => {
                 className="py-32 px-6 md:px-20 lg:px-32 bg-transparent border-t border-white/5"
             >
                 <div className="max-w-[1200px] mx-auto">
-                    <div className="flex flex-col items-start gap-6">
+                    <div className="flex flex-col items-start gap-12">
                         <h2 className="text-2xl md:text-3xl font-light text-white tracking-wide">
                             Welcome to a world of <span className="text-primary italic">potential</span>
                         </h2>
 
-                        <div className="flex items-center gap-6 text-xs md:text-sm uppercase tracking-[0.2em] text-secondary/60 font-medium">
+                        <div className="flex items-center gap-16 md:gap-24 text-xs uppercase tracking-[0.3em] text-secondary/60 font-medium">
                             <span className="hover:text-primary transition-colors duration-300">Lebanon</span>
                             <span className="text-primary/40">•</span>
                             <span className="hover:text-primary transition-colors duration-300">Qatar</span>
