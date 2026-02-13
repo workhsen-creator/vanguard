@@ -61,11 +61,12 @@ const Contact = () => {
                                 ) : (
                                     <div className="space-y-8">
                                         <div className="group relative">
+                                            <label className="block text-sm font-medium text-secondary/60 mb-2 uppercase tracking-widest">What's your name?</label>
                                             <input
                                                 type="text"
                                                 name="name"
                                                 className="w-full bg-transparent border-b border-white/20 py-8 text-xl md:text-2xl text-secondary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-white/20"
-                                                placeholder="Name"
+                                                placeholder="Name Surname"
                                                 required
                                             />
                                             <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-primary group-focus-within:w-full transition-all duration-500 ease-out shadow-[0_0_10px_var(--color-primary)]" />
@@ -73,11 +74,12 @@ const Contact = () => {
                                         </div>
 
                                         <div className="group relative">
+                                            <label className="block text-sm font-medium text-secondary/60 mb-2 uppercase tracking-widest">Where can we email you?</label>
                                             <input
                                                 type="email"
                                                 name="email"
                                                 className="w-full bg-transparent border-b border-white/20 py-8 text-xl md:text-2xl text-secondary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-white/20"
-                                                placeholder="Email"
+                                                placeholder="name@example.com"
                                                 required
                                             />
                                             <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-primary group-focus-within:w-full transition-all duration-500 ease-out shadow-[0_0_10px_var(--color-primary)]" />
@@ -85,11 +87,12 @@ const Contact = () => {
                                         </div>
 
                                         <div className="group relative">
+                                            <label className="block text-sm font-medium text-secondary/60 mb-2 uppercase tracking-widest">How can we help?</label>
                                             <textarea
                                                 name="message"
                                                 rows={1}
                                                 className="w-full bg-transparent border-b border-white/20 py-8 text-xl md:text-2xl text-secondary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-white/20 resize-none min-h-[80px]"
-                                                placeholder="Message"
+                                                placeholder="Your message..."
                                                 required
                                             />
                                             <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-primary group-focus-within:w-full transition-all duration-500 ease-out shadow-[0_0_10px_var(--color-primary)]" />
@@ -103,7 +106,7 @@ const Contact = () => {
                                                 className="relative px-8 py-4 bg-transparent border border-white/20 hover:border-primary text-secondary hover:text-primary font-bold uppercase tracking-[0.2em] transition-all duration-300 group overflow-hidden"
                                             >
                                                 <span className="relative z-10 flex items-center gap-3">
-                                                    {state.submitting ? 'Sending...' : 'Send Message'}
+                                                    {state.submitting ? 'Sending...' : 'Send it'}
                                                 </span>
                                                 <div className="absolute inset-0 bg-primary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                                                 <div className="absolute bottom-0 left-0 w-full h-[2px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
