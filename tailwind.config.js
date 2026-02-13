@@ -10,7 +10,7 @@ export default {
         background: '#262626', // Updated Black
         black: '#262626', // Override default black
         primary: '#ee7e4b', // Soft Orange
-        secondary: '#F5E6D3', // Light Skin
+        secondary: '#fff9f0', // Light Skin
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
