@@ -24,13 +24,57 @@ const Contact = () => {
                 </motion.h1>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
-                    {/* Left Column: Form */}
+                    {/* Left Column: Contact Info & Locations */}
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.2, duration: 0.8 }}
+                        className="space-y-16"
                     >
-                        <h2 className="text-2xl font-bold mb-8 uppercase tracking-widest text-primary">Get in Touch</h2>
+                        <div>
+                            <h2 className="text-2xl font-bold mb-8 uppercase tracking-widest text-primary">Contact Info</h2>
+                            <div className="space-y-6 text-lg text-secondary/80">
+                                <div className="group">
+                                    <h3 className="font-bold text-white mb-1 uppercase tracking-tighter text-sm opacity-60">Email</h3>
+                                    <a href="mailto:Contact@wearevanguard.co" className="text-xl md:text-2xl font-light hover:text-primary transition-colors block">
+                                        Contact@wearevanguard.co
+                                    </a>
+                                </div>
+                                <div className="group">
+                                    <h3 className="font-bold text-white mb-1 uppercase tracking-tighter text-sm opacity-60">Phone</h3>
+                                    <a href="tel:+96171814551" className="text-xl md:text-2xl font-light hover:text-primary transition-colors block">
+                                        +961 71 814 551
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Locations */}
+                        <div>
+                            <h2 className="text-2xl font-bold mb-8 uppercase tracking-widest text-primary">Global Presence</h2>
+                            <div className="space-y-8 text-lg text-secondary/80">
+                                <div className="p-6 border border-white/5 rounded-xl hover:border-primary/20 transition-colors">
+                                    <h3 className="font-bold text-white mb-2 uppercase tracking-tighter">Lebanon (HQ)</h3>
+                                    <p className="text-secondary/60">Beirut Central District</p>
+                                    <p className="text-secondary/60 text-sm">Lebanon</p>
+                                </div>
+
+                                <div className="p-6 border border-white/5 rounded-xl hover:border-primary/20 transition-colors">
+                                    <h3 className="font-bold text-white mb-2 uppercase tracking-tighter">Iraq</h3>
+                                    <p className="text-secondary/60">Baghdad Innovation Center</p>
+                                    <p className="text-secondary/60 text-sm">Iraq</p>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    {/* Right Column: Form */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.4, duration: 0.8 }}
+                    >
+                        <h2 className="text-2xl font-bold mb-8 uppercase tracking-widest text-primary">Let's Talk</h2>
 
                         <form onSubmit={handleSubmit} className="space-y-8 relative">
                             {/* Honeypot Spam Protection */}
@@ -122,34 +166,6 @@ const Contact = () => {
                                 )}
                             </AnimatePresence>
                         </form>
-                    </motion.div>
-
-                    {/* Right Column: Locations & Newsletter */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.4, duration: 0.8 }}
-                        className="space-y-20"
-                    >
-                        {/* Locations */}
-                        <div>
-                            <h2 className="text-2xl font-bold mb-8 uppercase tracking-widest text-primary">Global Presence</h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 text-lg text-secondary/80">
-                                <div className="p-6 border border-white/5 rounded-xl hover:border-primary/20 transition-colors">
-                                    <h3 className="font-bold text-white mb-2 uppercase tracking-tighter">Lebanon (HQ)</h3>
-                                    <p className="text-secondary/60">Beirut Central District</p>
-                                    <p className="text-secondary/60 text-sm">Lebanon</p>
-                                </div>
-
-                                <div className="p-6 border border-white/5 rounded-xl hover:border-primary/20 transition-colors">
-                                    <h3 className="font-bold text-white mb-2 uppercase tracking-tighter">Iraq</h3>
-                                    <p className="text-secondary/60">Baghdad Innovation Center</p>
-                                    <p className="text-secondary/60 text-sm">Iraq</p>
-                                </div>
-                            </div>
-                        </div>
-
-
                     </motion.div>
                 </div>
             </div>
