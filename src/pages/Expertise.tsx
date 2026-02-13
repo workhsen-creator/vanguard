@@ -56,12 +56,12 @@ const Expertise = () => {
 
                 {/* Navigation Tabs */}
                 <div className="border-b border-white/10 mb-16">
-                    <div className="flex flex-nowrap justify-between items-center w-full pb-4 overflow-x-hidden">
+                    <div className="grid grid-cols-2 gap-x-12 gap-y-8 w-full pb-8">
                         {services.map((service, index) => (
                             <button
                                 key={index}
                                 onClick={() => setActiveTab(index)}
-                                className={`relative text-sm md:text-xl uppercase tracking-widest font-bold pb-4 px-2 transition-colors duration-300 whitespace-nowrap ${activeTab === index ? 'text-primary' : 'text-secondary/40 hover:text-secondary'
+                                className={`relative text-lg md:text-2xl uppercase tracking-widest font-bold py-4 transition-colors duration-300 text-left ${activeTab === index ? 'text-primary' : 'text-secondary/40 hover:text-secondary'
                                     }`}
                             >
                                 {service.title}
