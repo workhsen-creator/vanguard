@@ -50,18 +50,18 @@ const Expertise = () => {
                     className="mb-16 md:mb-24"
                 >
                     <h1 className="text-6xl md:text-8xl font-bold tracking-tighter uppercase mb-8">
-                        Our Expertise
+                        Our <span className="text-primary">Expertise</span>
                     </h1>
                 </motion.div>
 
                 {/* Navigation Tabs */}
                 <div className="border-b border-white/10 mb-16">
-                    <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 md:gap-16 pb-4">
+                    <div className="flex flex-nowrap justify-between items-center w-full pb-4 overflow-x-hidden">
                         {services.map((service, index) => (
                             <button
                                 key={index}
                                 onClick={() => setActiveTab(index)}
-                                className={`relative text-lg md:text-xl uppercase tracking-widest font-bold pb-4 transition-colors duration-300 ${activeTab === index ? 'text-primary' : 'text-secondary/40 hover:text-secondary'
+                                className={`relative text-sm md:text-xl uppercase tracking-widest font-bold pb-4 px-2 transition-colors duration-300 whitespace-nowrap ${activeTab === index ? 'text-primary' : 'text-secondary/40 hover:text-secondary'
                                     }`}
                             >
                                 {service.title}
