@@ -108,7 +108,7 @@ const PortfolioGrid = () => {
                                             x: hoveredIndex === index ? 0 : -20
                                         }}
                                         transition={{ duration: 0.3 }}
-                                        className="inline-flex items-center gap-2 text-primary text-lg font-bold uppercase tracking-wider group-hover:gap-4 transition-all duration-300"
+                                        className="inline-flex items-center gap-2 text-secondary text-lg font-bold uppercase tracking-wider group-hover:gap-4 transition-all duration-300"
                                     >
                                         <span>Coming Soon</span>
                                         <ArrowUpRight size={24} />
