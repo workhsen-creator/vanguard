@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 // Project Data
 // Using high-quality unsplash images for premium feel
@@ -130,6 +131,7 @@ const Work = () => {
                 {/* Bottom CTA */}
 
             </main>
+            <Footer />
         </div>
     );
 };
