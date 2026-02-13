@@ -107,7 +107,7 @@ const AboutPage = () => {
                                 </h2>
                             </div>
                             <div className="md:col-span-2 grid gap-12">
-                                {['Consumer & Brand', 'Creative & Content', 'Intelligence & Innovation'].map((item, i) => (
+                                {['Consumer & Brand', 'Creative & Content', 'Intelligence & Innovation', 'Growth & Performance'].map((item, i) => (
                                     <motion.div
                                         key={i}
                                         initial={{ opacity: 0, y: 20 }}
