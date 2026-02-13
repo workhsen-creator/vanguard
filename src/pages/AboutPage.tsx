@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
-
 import { Helmet } from 'react-helmet-async';
 
 const AboutPage = () => {
@@ -11,99 +10,152 @@ const AboutPage = () => {
                 <title>Vanguard | About Us</title>
                 <meta name="description" content="Learn about Vanguard's vision, story, and expertise in PR and communications." />
             </Helmet>
-            <div className="pt-32 px-6 md:px-20 min-h-screen max-w-7xl mx-auto">
-                {/* Vision Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="mb-40 text-center"
-                >
-                    <h1 className="text-4xl md:text-5xl font-bold mb-10 tracking-tighter uppercase">
-                        Our <span className="text-primary">Vision</span>
-                    </h1>
-                    <p className="text-2xl md:text-4xl leading-relaxed font-light text-secondary/90">
-                        To be the leading PR and communications agency in the MENA region, driving impactful change through creativity, innovation, and trusted partnerships, while building lasting value for our clients and communities.
-                    </p>
-                </motion.div>
 
-                {/* Video/Animation Placeholder */}
-                <motion.div
-                    initial={{ scale: 0.95, opacity: 0 }}
-                    whileInView={{ scale: 1, opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1 }}
-                    className="w-full aspect-video bg-white/5 rounded-2xl mb-40 overflow-hidden relative flex justify-center items-center group cursor-pointer"
-                >
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent mix-blend-overlay" />
-                    {/* Placeholder for video */}
-                    <div className="w-24 h-24 rounded-full border-2 border-primary flex justify-center items-center group-hover:scale-110 transition-transform duration-500">
-                        <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[18px] border-l-primary border-b-[10px] border-b-transparent ml-1" />
-                    </div>
-                    <p className="absolute bottom-8 left-8 text-sm uppercase tracking-widest text-secondary/60">
-                        Play Brand Film
-                    </p>
-                </motion.div>
+            <div className="min-h-screen bg-background text-secondary">
 
-                {/* Story Section */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="mb-40 grid grid-cols-1 md:grid-cols-12 gap-10"
-                >
-                    <div className="md:col-span-4">
-                        <h2 className="text-4xl font-bold uppercase tracking-widest text-primary mb-6">Our Story</h2>
-                    </div>
-                    <div className="md:col-span-8">
-                        <p className="text-xl md:text-2xl leading-relaxed text-secondary/80 mb-8">
-                            Vanguard, a PR and communications agency based in the MENA region, we don’t just embrace change, we drive it. We believe brands don’t command attention; they earn it.
-                        </p>
-                        <p className="text-xl md:text-2xl leading-relaxed text-secondary/80 mb-8">
-                            Through creative storytelling, fueled by data and technology, we build brands, protect reputations, and earn influence for our clients. Our team partners with innovators and industry leaders to create real value and lasting impact.
-                        </p>
-                        <p className="text-xl md:text-2xl leading-relaxed text-secondary/80">
-                            We don’t just create moments — we create movements. For and with our people and clients, we move forward, always. Because at Vanguard, it is what matters.
-                        </p>
-                    </div>
-                </motion.div>
+                {/* 1. Minimal Hero Section */}
+                <section className="pt-40 pb-20 md:pt-60 md:pb-40 px-6 md:px-20 max-w-[1800px] mx-auto">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, ease: 'easeOut' }}
+                    >
+                        <span className="block text-primary text-sm md:text-base tracking-widest uppercase mb-6 md:mb-10 font-bold">
+                            Our Vision
+                        </span>
+                        <h1 className="text-3xl md:text-6xl lg:text-7xl leading-[1.1] font-bold tracking-tight max-w-5xl">
+                            To be the leading PR and communications agency in the MENA region, driving impactful change through creativity, innovation, and <span className="text-primary">trusted partnerships.</span>
+                        </h1>
+                    </motion.div>
+                </section>
 
-                {/* Expertise Summary */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="mb-40 border-t border-white/10 pt-20"
-                >
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
-                        <h2 className="text-4xl font-bold uppercase tracking-widest text-secondary">Expertise</h2>
-                        <Link to="/expertise" className="text-primary uppercase tracking-widest hover:text-white transition-colors mt-4 md:mt-0">
-                            View All Services →
-                        </Link>
+                {/* 2. Big Typography Statement */}
+                <section className="py-20 px-6 md:px-20 border-t border-white/5">
+                    <div className="max-w-[1800px] mx-auto">
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.98 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8 }}
+                            className="flex flex-col items-center text-center py-20 md:py-40"
+                        >
+                            <h2 className="text-4xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter opacity-10 mb-8 select-none">
+                                Vanguard
+                            </h2>
+                            <p className="text-2xl md:text-5xl lg:text-6xl font-light leading-tight max-w-6xl relative z-10">
+                                "We believe brands don’t command attention; <span className="text-primary font-normal">they earn it.</span>"
+                            </p>
+                        </motion.div>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {['Consumer & Brand', 'Creative & Content', 'Intelligence & Innovation'].map((item, i) => (
-                            <div key={i} className="py-8 border-b border-white/10">
-                                <h3 className="text-2xl font-light">{item}</h3>
+                </section>
+
+                {/* 3. Split Section (Story) */}
+                <section className="py-20 md:py-32 px-6 md:px-20 max-w-[1800px] mx-auto">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-center">
+
+                        {/* Visual / Image Side */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8 }}
+                            className="relative aspect-square md:aspect-[4/3] bg-white/5 rounded-none md:rounded-3xl overflow-hidden flex items-center justify-center group"
+                        >
+                            {/* Abstract Visual Placeholder */}
+                            <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent" />
+                            <div className="w-1/2 h-1/2 border border-primary/30 rounded-full flex items-center justify-center group-hover:scale-105 transition-transform duration-700">
+                                <div className="w-2/3 h-2/3 border border-white/10 rounded-full" />
                             </div>
-                        ))}
-                    </div>
-                </motion.div>
+                            <span className="absolute bottom-6 left-6 text-xs uppercase tracking-widest text-secondary/40">
+                                Our Story
+                            </span>
+                        </motion.div>
 
-                {/* CTA */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="bg-primary text-black p-20 text-center rounded-3xl mb-20"
-                >
-                    <h2 className="text-3xl md:text-5xl font-bold mb-8 tracking-tighter">READY TO MOVE FORWARD?</h2>
-                    <Link to="/contact">
-                        <button className="px-10 py-4 bg-black text-white text-xl uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300 rounded-full">
-                            Let's Talk
-                        </button>
-                    </Link>
-                </motion.div>
+                        {/* Text Side */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            className="flex flex-col justify-center"
+                        >
+                            <h3 className="text-primary text-sm tracking-widest uppercase mb-8 font-bold">
+                                Who We Are
+                            </h3>
+                            <div className="space-y-8 text-lg md:text-xl font-light text-secondary/80 leading-relaxed">
+                                <p>
+                                    Vanguard, a PR and communications agency based in the MENA region, we don’t just embrace change, we drive it.
+                                </p>
+                                <p>
+                                    Through creative storytelling, fueled by data and technology, we build brands, protect reputations, and earn influence for our clients. Our team partners with innovators and industry leaders to create real value and lasting impact.
+                                </p>
+                                <p>
+                                    We don’t just create moments — we create movements. For and with our people and clients, we move forward, always. Because at Vanguard, it is what matters.
+                                </p>
+                            </div>
+                        </motion.div>
+                    </div>
+                </section>
+
+                {/* 4. Content Rhythm / Expertise */}
+                <section className="py-20 md:py-40 px-6 md:px-20 border-t border-white/5 bg-white/[0.02]">
+                    <div className="max-w-[1800px] mx-auto">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+                            <div className="md:col-span-1">
+                                <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-tight sticky top-32">
+                                    Core <br /><span className="text-primary">Expertise</span>
+                                </h2>
+                            </div>
+                            <div className="md:col-span-2 grid gap-12">
+                                {['Consumer & Brand', 'Creative & Content', 'Intelligence & Innovation'].map((item, i) => (
+                                    <motion.div
+                                        key={i}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.5, delay: i * 0.1 }}
+                                        className="group border-b border-white/10 pb-12 hover:border-primary/50 transition-colors duration-500"
+                                    >
+                                        <div className="flex justify-between items-center">
+                                            <h3 className="text-2xl md:text-5xl font-light tracking-tight group-hover:text-white transition-colors">
+                                                {item}
+                                            </h3>
+                                            <span className="text-primary text-xl opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0 duration-300">
+                                                →
+                                            </span>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                                <div className="mt-8">
+                                    <Link to="/expertise" className="inline-flex items-center gap-2 text-primary uppercase tracking-widest text-sm hover:text-white transition-colors hover:gap-4 duration-300">
+                                        View Full Services <span className="text-lg">→</span>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* 5. Minimal CTA */}
+                <section className="py-32 md:py-48 px-6 md:px-20 max-w-[1800px] mx-auto text-center">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <h2 className="text-4xl md:text-7xl font-bold uppercase tracking-tighter mb-12">
+                            Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-white">move forward?</span>
+                        </h2>
+                        <Link to="/contact">
+                            <button className="group relative px-12 py-5 bg-secondary text-background text-lg md:text-xl font-bold uppercase tracking-widest overflow-hidden rounded-full transition-all hover:scale-105">
+                                <span className="relative z-10 group-hover:text-white transition-colors duration-300">Let's Talk</span>
+                                <div className="absolute inset-0 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                            </button>
+                        </Link>
+                    </motion.div>
+                </section>
+
             </div>
             <Footer />
         </>
