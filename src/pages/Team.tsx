@@ -14,11 +14,8 @@ const Team = () => {
                     transition={{ duration: 0.8 }}
                     className="mb-32 text-center"
                 >
-                    <h1 className="text-5xl md:text-6xl font-bold mb-6 tracking-tighter text-secondary leading-none">
-                        THE <span className="text-primary">TEAM</span>
-                    </h1>
                     <h2 className="text-3xl md:text-5xl font-light text-secondary mb-8">
-                        Change Starts Together
+                        Change Starts <span className="text-primary">Together</span>
                     </h2>
                     <p className="text-xl md:text-2xl text-secondary/60 max-w-2xl mx-auto text-center">
                         And together, we are Vanguard.
