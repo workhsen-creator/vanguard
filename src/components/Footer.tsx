@@ -10,14 +10,14 @@ const TikTokIcon = () => (
 
 const Footer = () => {
     return (
-        <section className="py-8 md:py-16 px-6 md:px-20 bg-secondary text-background border-t-2 border-primary/20">
+        <section className="py-6 md:py-10 px-6 md:px-20 bg-secondary text-background border-t-2 border-primary/20">
             <div className="max-w-[1800px] mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
-                    className="text-center mb-8"
+                    className="text-center mb-6"
                 >
                     <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight mb-4">
                         Let's Create
@@ -26,7 +26,7 @@ const Footer = () => {
                     </h2>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8 justify-items-center">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-6 justify-items-center">
                     {/* Email */}
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -73,7 +73,7 @@ const Footer = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, delay: 0.4 }}
-                    className="flex justify-center gap-6 pt-6 border-t border-background/20 mb-8"
+                    className="flex justify-center gap-6 pt-6 border-t border-background/20 mb-6"
                 >
                     <a
                         href="https://www.instagram.com/lifeatvanguard.lb?igsh=MWpkb3Y1OWxjOXRnNg=="
