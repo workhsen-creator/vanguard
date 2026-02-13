@@ -55,8 +55,8 @@ const Expertise = () => {
                 </motion.div>
 
                 {/* Navigation Tabs */}
-                <div className="border-b border-white/10 mb-16 overflow-x-auto no-scrollbar">
-                    <div className="flex gap-8 md:gap-16 min-w-max pb-4">
+                <div className="border-b border-white/10 mb-16">
+                    <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 md:gap-16 pb-4">
                         {services.map((service, index) => (
                             <button
                                 key={index}
@@ -142,17 +142,21 @@ const Expertise = () => {
                         {sectors.map((sector, index) => (
                             <div
                                 key={index}
-                                className="p-8 border border-white/5 hover:border-primary/30 transition-colors duration-300 bg-white/[0.02] group"
+                                className="p-8 border border-white/5 hover:border-primary/30 transition-all duration-300 bg-white/[0.02] hover:bg-white/[0.05] group cursor-default relative overflow-hidden"
                             >
-                                <div className="flex justify-between items-start mb-4">
+                                <div className="flex justify-between items-start mb-4 relative z-10">
                                     <h3 className="text-xl font-bold text-white group-hover:text-primary transition-colors">
                                         {sector.title}
                                     </h3>
                                     <ArrowUpRight className="text-white/20 group-hover:text-primary transition-colors" size={20} />
                                 </div>
-                                <p className="text-sm text-secondary/50 leading-relaxed font-light">
-                                    {sector.description}
-                                </p>
+                                <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-in-out">
+                                    <div className="overflow-hidden">
+                                        <p className="text-sm text-secondary/70 leading-relaxed font-light pt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                                            {sector.description}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         ))}
                     </div>
