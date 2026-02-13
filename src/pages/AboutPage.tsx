@@ -12,11 +12,12 @@ const AboutPage = () => {
                 <meta name="description" content="Learn about Vanguard's vision, story, and expertise in PR and communications." />
             </Helmet>
 
-            <div className="min-h-screen bg-background text-secondary relative">
-                <BackgroundAnimation />
+            <BackgroundAnimation />
+
+            <div className="min-h-screen text-secondary relative z-10">
 
                 {/* 1. Minimal Hero Section */}
-                <section className="pt-40 pb-20 md:pt-60 md:pb-40 px-6 md:px-20 max-w-[1800px] mx-auto relative z-10">
+                <section className="pt-40 pb-20 md:pt-60 md:pb-40 px-6 md:px-20 max-w-[1800px] mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -32,7 +33,7 @@ const AboutPage = () => {
                 </section>
 
                 {/* 2. Big Typography Statement */}
-                <section className="py-20 px-6 md:px-20 border-t border-white/5 relative z-10">
+                <section className="py-20 px-6 md:px-20 border-t border-white/5">
                     <div className="max-w-[1800px] mx-auto">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.98 }}
@@ -52,7 +53,7 @@ const AboutPage = () => {
                 </section>
 
                 {/* 3. Split Section (Story) */}
-                <section className="py-20 md:py-32 px-6 md:px-20 max-w-[1800px] mx-auto relative z-10">
+                <section className="py-20 md:py-32 px-6 md:px-20 max-w-[1800px] mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-center">
 
                         {/* Visual / Image Side */}
@@ -100,7 +101,7 @@ const AboutPage = () => {
                 </section>
 
                 {/* 4. Content Rhythm / Expertise */}
-                <section className="py-20 md:py-40 px-6 md:px-20 border-t border-white/5 bg-white/[0.02] relative z-10">
+                <section className="py-20 md:py-40 px-6 md:px-20 border-t border-white/5 bg-white/[0.02]">
                     <div className="max-w-[1800px] mx-auto">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
                             <div className="md:col-span-1">
@@ -144,7 +145,7 @@ const AboutPage = () => {
                 </section>
 
                 {/* 5. Minimal CTA */}
-                <section className="py-32 md:py-48 px-6 md:px-20 max-w-[1800px] mx-auto text-center relative z-10">
+                <section className="py-32 md:py-48 px-6 md:px-20 max-w-[1800px] mx-auto text-center">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}
