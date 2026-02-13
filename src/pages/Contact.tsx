@@ -2,6 +2,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useForm, ValidationError } from '@formspree/react';
 import { Helmet } from 'react-helmet-async';
 import Footer from '../components/Footer';
+import { Mail, Phone, MapPin, Instagram, Linkedin, Facebook } from 'lucide-react';
+
+const TikTokIcon = () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+    </svg>
+);
 
 const Contact = () => {
     const [state, handleSubmit] = useForm("xpqlygwk");
@@ -12,71 +19,31 @@ const Contact = () => {
                 <title>Vanguard | Contact Us</title>
                 <meta name="description" content="Get in touch with Vanguard for PR, communications, and brand strategy inquiries." />
             </Helmet>
-            <div className="pt-32 px-6 md:px-20 min-h-screen max-w-7xl mx-auto mb-20">
-                <motion.h1
-                    initial={{ y: 50, opacity: 0 }}
+
+            <div className="pt-32 px-6 md:px-20 min-h-screen max-w-7xl mx-auto mb-20 relative">
+                {/* Glowing Background Element */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-96 bg-primary/5 blur-[120px] rounded-full pointer-events-none -z-10" />
+
+                {/* Top Section: Emotional Headline */}
+                <motion.div
+                    initial={{ y: 30, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.8 }}
-                    className="text-4xl md:text-5xl font-bold mb-20 text-secondary tracking-tighter leading-tight uppercase text-center"
+                    className="text-center mb-24 max-w-4xl mx-auto"
                 >
-                    Welcome to a world <br />
-                    <span className="text-primary font-black italic">of potential.</span>
-                </motion.h1>
+                    <h1 className="text-4xl md:text-6xl font-bold tracking-tighter leading-tight uppercase text-secondary drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                        Say Helloo and let’s get started on your <span className="text-primary inline-block drop-shadow-[0_0_20px_rgba(var(--color-primary-rgb),0.5)]">next project!</span>
+                    </h1>
+                </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
-                    {/* Left Column: Contact Info & Locations */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
+                    {/* Left Side: Minimal Tech Form */}
                     <motion.div
-                        initial={{ opacity: 0, x: -50 }}
+                        initial={{ opacity: 0, x: -30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.2, duration: 0.8 }}
-                        className="space-y-16"
                     >
-                        <div>
-                            <h2 className="text-2xl font-bold mb-8 uppercase tracking-widest text-primary">Contact Info</h2>
-                            <div className="space-y-6 text-lg text-secondary/80">
-                                <div className="group">
-                                    <h3 className="font-bold text-white mb-1 uppercase tracking-tighter text-sm opacity-60">Email</h3>
-                                    <a href="mailto:Contact@wearevanguard.co" className="text-xl md:text-2xl font-light hover:text-primary transition-colors block">
-                                        Contact@wearevanguard.co
-                                    </a>
-                                </div>
-                                <div className="group">
-                                    <h3 className="font-bold text-white mb-1 uppercase tracking-tighter text-sm opacity-60">Phone</h3>
-                                    <a href="tel:+96171814551" className="text-xl md:text-2xl font-light hover:text-primary transition-colors block">
-                                        +961 71 814 551
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Locations */}
-                        <div>
-                            <h2 className="text-2xl font-bold mb-8 uppercase tracking-widest text-primary">Global Presence</h2>
-                            <div className="space-y-8 text-lg text-secondary/80">
-                                <div className="p-6 border border-white/5 rounded-xl hover:border-primary/20 transition-colors">
-                                    <h3 className="font-bold text-white mb-2 uppercase tracking-tighter">Lebanon (HQ)</h3>
-                                    <p className="text-secondary/60">Beirut Central District</p>
-                                    <p className="text-secondary/60 text-sm">Lebanon</p>
-                                </div>
-
-                                <div className="p-6 border border-white/5 rounded-xl hover:border-primary/20 transition-colors">
-                                    <h3 className="font-bold text-white mb-2 uppercase tracking-tighter">Iraq</h3>
-                                    <p className="text-secondary/60">Baghdad Innovation Center</p>
-                                    <p className="text-secondary/60 text-sm">Iraq</p>
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    {/* Right Column: Form */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.4, duration: 0.8 }}
-                    >
-                        <h2 className="text-2xl font-bold mb-8 uppercase tracking-widest text-primary">Let's Talk</h2>
-
-                        <form onSubmit={handleSubmit} className="space-y-8 relative">
+                        <form onSubmit={handleSubmit} className="space-y-10">
                             {/* Honeypot Spam Protection */}
                             <input type="text" name="_gotcha" style={{ display: 'none' }} />
 
@@ -84,91 +51,150 @@ const Contact = () => {
                                 {state.succeeded ? (
                                     <motion.div
                                         key="success"
-                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        initial={{ opacity: 0, scale: 0.95 }}
                                         animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0.9 }}
-                                        className="bg-primary/10 border border-primary/20 p-10 rounded-2xl text-center"
+                                        className="bg-primary/5 border border-primary/20 p-8 rounded-xl text-center backdrop-blur-sm"
                                     >
-                                        <motion.div
-                                            initial={{ scale: 0 }}
-                                            animate={{ scale: 1 }}
-                                            transition={{ type: "spring", stiffness: 200, damping: 10 }}
-                                            className="w-20 h-20 bg-primary rounded-full mx-auto mb-6 flex items-center justify-center text-black"
-                                        >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                        </motion.div>
-                                        <h3 className="text-3xl font-bold mb-2 text-white uppercase tracking-tighter">Message Sent!</h3>
-                                        <p className="text-secondary/60 text-lg">Your email client is opening now.<br />We'll get back to you shortly.</p>
+                                        <h3 className="text-2xl font-bold mb-2 text-primary uppercase tracking-widest">Message Sent</h3>
+                                        <p className="text-secondary/70">We'll be in touch shortly.</p>
                                     </motion.div>
                                 ) : (
-                                    <motion.div key="form" className="space-y-8">
-                                        {state.errors && state.errors.getFormErrors().length > 0 && (
-                                            <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-lg">
-                                                <p className="text-red-400 text-sm font-mono">
-                                                    {state.errors.getFormErrors().map((error) => error.message).join(', ')}
-                                                </p>
-                                            </div>
-                                        )}
-
-                                        <div className="space-y-2">
-                                            <label className="text-sm uppercase tracking-widest text-secondary/60">Name</label>
+                                    <div className="space-y-8">
+                                        <div className="group relative">
                                             <input
                                                 type="text"
                                                 name="name"
-                                                className="w-full bg-transparent border-b border-secondary/20 py-4 text-xl focus:border-primary outline-none transition-colors"
-                                                placeholder="Your Name"
+                                                className="w-full bg-transparent border-b border-white/20 py-4 text-xl md:text-2xl text-secondary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-white/20"
+                                                placeholder="Name"
                                                 required
                                             />
-                                            <ValidationError prefix="Name" field="name" errors={state.errors} className="text-red-400 text-xs mt-1" />
+                                            <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-primary group-focus-within:w-full transition-all duration-500 ease-out shadow-[0_0_10px_var(--color-primary)]" />
+                                            <ValidationError prefix="Name" field="name" errors={state.errors} className="text-red-400 text-xs mt-2 block" />
                                         </div>
-                                        <div className="space-y-2">
-                                            <label className="text-sm uppercase tracking-widest text-secondary/60">Email</label>
+
+                                        <div className="group relative">
                                             <input
                                                 type="email"
                                                 name="email"
-                                                className="w-full bg-transparent border-b border-secondary/20 py-4 text-xl focus:border-primary outline-none transition-colors"
-                                                placeholder="Your Email"
+                                                className="w-full bg-transparent border-b border-white/20 py-4 text-xl md:text-2xl text-secondary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-white/20"
+                                                placeholder="Email"
                                                 required
                                             />
-                                            <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-xs mt-1" />
+                                            <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-primary group-focus-within:w-full transition-all duration-500 ease-out shadow-[0_0_10px_var(--color-primary)]" />
+                                            <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-xs mt-2 block" />
                                         </div>
-                                        <div className="space-y-2">
-                                            <label className="text-sm uppercase tracking-widest text-secondary/60">Message</label>
+
+                                        <div className="group relative">
                                             <textarea
                                                 name="message"
-                                                rows={4}
-                                                className="w-full bg-transparent border-b border-secondary/20 py-4 text-xl focus:border-primary outline-none transition-colors resize-none"
-                                                placeholder="How can we help?"
+                                                rows={1}
+                                                className="w-full bg-transparent border-b border-white/20 py-4 text-xl md:text-2xl text-secondary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-white/20 resize-none min-h-[60px]"
+                                                placeholder="Message"
                                                 required
                                             />
-                                            <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-400 text-xs mt-1" />
+                                            <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-primary group-focus-within:w-full transition-all duration-500 ease-out shadow-[0_0_10px_var(--color-primary)]" />
+                                            <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-400 text-xs mt-2 block" />
                                         </div>
-                                        <button
-                                            type="submit"
-                                            disabled={state.submitting}
-                                            className="group relative px-10 py-5 bg-primary text-black font-bold uppercase tracking-widest overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50"
-                                        >
-                                            <span className="relative z-10 flex items-center gap-3">
-                                                {state.submitting ? (
-                                                    <>
-                                                        <motion.div
-                                                            animate={{ rotate: 360 }}
-                                                            transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-                                                            className="w-5 h-5 border-2 border-black border-t-transparent rounded-full"
-                                                        />
-                                                        Processing...
-                                                    </>
-                                                ) : 'Send Message'}
-                                            </span>
-                                            <div className="absolute inset-0 bg-white translate-y-[101%] group-hover:translate-y-0 transition-transform duration-300" />
-                                        </button>
-                                    </motion.div>
+
+                                        <div className="pt-4">
+                                            <button
+                                                type="submit"
+                                                disabled={state.submitting}
+                                                className="relative px-8 py-4 bg-transparent border border-white/20 hover:border-primary text-secondary hover:text-primary font-bold uppercase tracking-[0.2em] transition-all duration-300 group overflow-hidden"
+                                            >
+                                                <span className="relative z-10 flex items-center gap-3">
+                                                    {state.submitting ? 'Sending...' : 'Send Message'}
+                                                </span>
+                                                <div className="absolute inset-0 bg-primary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                                                <div className="absolute bottom-0 left-0 w-full h-[2px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                                            </button>
+                                        </div>
+                                    </div>
                                 )}
                             </AnimatePresence>
                         </form>
                     </motion.div>
+
+                    {/* Right Side: Contact Info Block */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 30 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.4, duration: 0.8 }}
+                        className="space-y-12 md:pl-10"
+                    >
+                        <div className="space-y-12">
+                            <div className="group">
+                                <h3 className="text-xs font-bold text-white/40 uppercase tracking-widest mb-4">Details</h3>
+                                <div className="space-y-4">
+                                    <a href="mailto:Contact@wearevanguard.co" className="flex items-center gap-4 text-lg md:text-xl font-light hover:text-primary transition-colors text-secondary group/link">
+                                        <Mail size={18} className="text-primary/70 group-hover/link:text-primary transition-colors" />
+                                        Contact@wearevanguard.co
+                                    </a>
+                                    <a href="tel:+96171814551" className="flex items-center gap-4 text-lg md:text-xl font-light hover:text-primary transition-colors text-secondary group/link">
+                                        <Phone size={18} className="text-primary/70 group-hover/link:text-primary transition-colors" />
+                                        +961 71 814 551
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div className="group">
+                                <h3 className="text-xs font-bold text-white/40 uppercase tracking-widest mb-4">Connect</h3>
+                                <div className="flex gap-4">
+                                    <a href="https://www.instagram.com/lifeatvanguard.lb?igsh=MWpkb3Y1OWxjOXRnNg==" target="_blank" rel="noopener noreferrer" className="p-3 border border-white/10 rounded-full hover:border-primary hover:text-primary transition-all duration-300 group/icon">
+                                        <Instagram size={20} className="group-hover/icon:scale-110 transition-transform" />
+                                    </a>
+                                    <a href="https://www.linkedin.com/company/the-vanguard-studio/" target="_blank" rel="noopener noreferrer" className="p-3 border border-white/10 rounded-full hover:border-primary hover:text-primary transition-all duration-300 group/icon">
+                                        <Linkedin size={20} className="group-hover/icon:scale-110 transition-transform" />
+                                    </a>
+                                    <a href="https://www.tiktok.com/@lifeatvanguard" target="_blank" rel="noopener noreferrer" className="p-3 border border-white/10 rounded-full hover:border-primary hover:text-primary transition-all duration-300 group/icon">
+                                        <TikTokIcon />
+                                    </a>
+                                    <a href="https://www.facebook.com/profile.php?id=61563468455146" target="_blank" rel="noopener noreferrer" className="p-3 border border-white/10 rounded-full hover:border-primary hover:text-primary transition-all duration-300 group/icon">
+                                        <Facebook size={20} className="group-hover/icon:scale-110 transition-transform" />
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div className="group">
+                                <h3 className="text-xs font-bold text-white/40 uppercase tracking-widest mb-4">Location</h3>
+                                <div className="space-y-4">
+                                    <div className="flex items-start gap-4 text-secondary/70">
+                                        <MapPin size={18} className="text-primary/70 mt-1 shrink-0" />
+                                        <div>
+                                            <p className="text-lg text-white">Beirut Central District</p>
+                                            <p className="text-sm opacity-60">Lebanon (HQ)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
                 </div>
             </div>
+
+            {/* Bottom Section: World of Potential */}
+            <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 1 }}
+                className="text-center py-20 bg-gradient-to-b from-transparent to-background/50 border-b border-white/5"
+            >
+                <div className="max-w-4xl mx-auto px-6">
+                    <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tight text-white mb-6 drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
+                        Welcome to a world of <span className="text-primary italic">potential</span>
+                    </h2>
+
+                    <div className="flex items-center justify-center gap-4 md:gap-8 text-sm md:text-lg uppercase tracking-[0.3em] text-secondary/60">
+                        <span className="hover:text-primary hover:drop-shadow-[0_0_8px_var(--color-primary)] transition-all cursor-default duration-300">Lebanon</span>
+                        <span className="text-primary/40">•</span>
+                        <span className="hover:text-primary hover:drop-shadow-[0_0_8px_var(--color-primary)] transition-all cursor-default duration-300">Qatar</span>
+                        <span className="text-primary/40">•</span>
+                        <span className="hover:text-primary hover:drop-shadow-[0_0_8px_var(--color-primary)] transition-all cursor-default duration-300">Iraq</span>
+                    </div>
+                </div>
+            </motion.div>
+
             <Footer />
         </>
     );
