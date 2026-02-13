@@ -117,7 +117,7 @@ const Work = () => {
                         className="text-[15vw] leading-[0.8] font-bold tracking-tighter text-secondary uppercase opacity-90"
                     >
                         Selected<br />
-                        <span className="text-white/10 ml-[10vw]">Work</span>
+                        <span className="text-primary ml-[10vw]">Work</span>
                     </motion.h1>
                 </header>
 
