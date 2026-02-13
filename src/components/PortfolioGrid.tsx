@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 // Portfolio items
 const portfolioItems = [
@@ -73,7 +74,7 @@ const PortfolioGrid = () => {
                                     transition={{ duration: 0.3 }}
                                     className="self-start"
                                 >
-                                    <span className="text-background text-sm uppercase tracking-wider font-bold border border-background/30 px-4 py-2 inline-block">
+                                    <span className="text-primary text-sm uppercase tracking-wider font-bold border border-primary/30 px-4 py-2 inline-block">
                                         /{item.category}
                                     </span>
                                 </motion.div>
@@ -85,7 +86,7 @@ const PortfolioGrid = () => {
                                         animate={{
                                             opacity: hoveredIndex === index ? 1 : 0.8,
                                         }}
-                                        className="text-3xl md:text-4xl lg:text-5xl font-bold text-background mb-6 leading-tight"
+                                        className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-6 leading-tight"
                                     >
                                         {item.title}
                                     </motion.h3>
@@ -97,7 +98,7 @@ const PortfolioGrid = () => {
                                             x: hoveredIndex === index ? 0 : -20
                                         }}
                                         transition={{ duration: 0.3 }}
-                                        className="inline-flex items-center gap-2 text-background text-lg font-bold uppercase tracking-wider group-hover:gap-4 transition-all duration-300"
+                                        className="inline-flex items-center gap-2 text-primary text-lg font-bold uppercase tracking-wider group-hover:gap-4 transition-all duration-300"
                                     >
                                         <span>Coming Soon</span>
                                         <ArrowUpRight size={24} />
@@ -118,13 +119,13 @@ const PortfolioGrid = () => {
                     transition={{ duration: 0.8, delay: 0.4 }}
                     className="text-center mt-16"
                 >
-                    <a
-                        href="/work"
+                    <Link
+                        to="/work"
                         className="inline-flex items-center gap-3 bg-transparent text-secondary border-2 border-secondary/20 hover:border-primary hover:text-primary px-10 py-5 text-lg font-bold uppercase tracking-wider transition-all duration-300 transform hover:scale-105 group"
                     >
                         View All Work
                         <ArrowUpRight size={24} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
-                    </a>
+                    </Link>
                 </motion.div>
             </div>
         </section>
