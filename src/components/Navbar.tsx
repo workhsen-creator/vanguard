@@ -4,7 +4,7 @@ import { Menu, X, Instagram, Linkedin, Facebook } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const TikTokIcon = () => (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
         <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
     </svg>
 );
@@ -14,6 +14,17 @@ const Navbar = () => {
 
     const [isVisible, setIsVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -35,10 +46,9 @@ const Navbar = () => {
     }, [lastScrollY]);
 
     const menuItems = [
-        { title: "Home", href: "/" },
-        { title: "Our Work", href: "/work" },
-        { title: "Expertise", href: "/expertise" },
         { title: "About", href: "/about" },
+        { title: "Work", href: "/work" },
+        { title: "Expertise", href: "/expertise" },
         { title: "Contact", href: "/contact" }
     ];
 
@@ -55,7 +65,7 @@ const Navbar = () => {
             >
                 <Link
                     to="/"
-                    className="relative z-[60] pointer-events-auto h-28 flex items-center overflow-hidden"
+                    className="relative z-[60] pointer-events-auto h-20 flex items-center overflow-hidden"
                 >
                     <motion.img
                         key="main-logo-img"
@@ -119,16 +129,16 @@ const Navbar = () => {
                             className="absolute bottom-10 left-10 md:left-20 flex gap-6 text-secondary/50"
                         >
                             <a href="https://www.instagram.com/lifeatvanguard.lb?igsh=MWpkb3Y1OWxjOXRnNg==" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors cursor-pointer" aria-label="Instagram">
-                                <Instagram size={32} />
+                                <Instagram size={24} />
                             </a>
                             <a href="https://www.linkedin.com/company/the-vanguard-studio/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors cursor-pointer" aria-label="LinkedIn">
-                                <Linkedin size={32} />
+                                <Linkedin size={24} />
                             </a>
                             <a href="https://www.tiktok.com/@lifeatvanguard" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors cursor-pointer" aria-label="TikTok">
                                 <TikTokIcon />
                             </a>
                             <a href="https://www.facebook.com/profile.php?id=61563468455146" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors cursor-pointer" aria-label="Facebook">
-                                <Facebook size={32} />
+                                <Facebook size={24} />
                             </a>
                         </motion.div>
                     </motion.div>
