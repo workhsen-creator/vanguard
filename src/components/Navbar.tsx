@@ -66,6 +66,7 @@ const Navbar = () => {
                 <Link
                     to="/"
                     className="relative z-[60] pointer-events-auto h-20 flex items-center overflow-hidden"
+                    onClick={() => setIsOpen(false)}
                 >
                     <motion.img
                         key="main-logo-img"
