@@ -103,7 +103,7 @@ const AboutPage = () => {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
                             <div className="md:col-span-1">
                                 <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-tight sticky top-32">
-                                    Core <br /><span className="text-primary">Expertise</span>
+                                    Growth <br /><span className="text-primary">& Performance</span>
                                 </h2>
                             </div>
                             <div className="md:col-span-2 grid gap-12">
