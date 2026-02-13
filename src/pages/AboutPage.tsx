@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
+import BackgroundAnimation from '../components/BackgroundAnimation';
 import { Helmet } from 'react-helmet-async';
 
 const AboutPage = () => {
@@ -11,10 +12,11 @@ const AboutPage = () => {
                 <meta name="description" content="Learn about Vanguard's vision, story, and expertise in PR and communications." />
             </Helmet>
 
-            <div className="min-h-screen bg-background text-secondary">
+            <div className="min-h-screen bg-background text-secondary relative">
+                <BackgroundAnimation />
 
                 {/* 1. Minimal Hero Section */}
-                <section className="pt-40 pb-20 md:pt-60 md:pb-40 px-6 md:px-20 max-w-[1800px] mx-auto">
+                <section className="pt-40 pb-20 md:pt-60 md:pb-40 px-6 md:px-20 max-w-[1800px] mx-auto relative z-10">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -30,7 +32,7 @@ const AboutPage = () => {
                 </section>
 
                 {/* 2. Big Typography Statement */}
-                <section className="py-20 px-6 md:px-20 border-t border-white/5">
+                <section className="py-20 px-6 md:px-20 border-t border-white/5 relative z-10">
                     <div className="max-w-[1800px] mx-auto">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.98 }}
@@ -50,7 +52,7 @@ const AboutPage = () => {
                 </section>
 
                 {/* 3. Split Section (Story) */}
-                <section className="py-20 md:py-32 px-6 md:px-20 max-w-[1800px] mx-auto">
+                <section className="py-20 md:py-32 px-6 md:px-20 max-w-[1800px] mx-auto relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-center">
 
                         {/* Visual / Image Side */}
@@ -98,7 +100,7 @@ const AboutPage = () => {
                 </section>
 
                 {/* 4. Content Rhythm / Expertise */}
-                <section className="py-20 md:py-40 px-6 md:px-20 border-t border-white/5 bg-white/[0.02]">
+                <section className="py-20 md:py-40 px-6 md:px-20 border-t border-white/5 bg-white/[0.02] relative z-10">
                     <div className="max-w-[1800px] mx-auto">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
                             <div className="md:col-span-1">
@@ -108,23 +110,28 @@ const AboutPage = () => {
                             </div>
                             <div className="md:col-span-2 grid gap-12">
                                 {['Consumer & Brand', 'Creative & Content', 'Intelligence & Innovation', 'Growth & Performance'].map((item, i) => (
-                                    <motion.div
+                                    <Link
+                                        to={`/expertise?tab=${encodeURIComponent(item)}`}
                                         key={i}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 0.5, delay: i * 0.1 }}
-                                        className="group border-b border-white/10 pb-12 hover:border-primary/50 transition-colors duration-500"
+                                        className="block group"
                                     >
-                                        <div className="flex justify-between items-center">
-                                            <h3 className="text-2xl md:text-5xl font-light tracking-tight group-hover:text-white transition-colors">
-                                                {item}
-                                            </h3>
-                                            <span className="text-primary text-xl opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0 duration-300">
-                                                →
-                                            </span>
-                                        </div>
-                                    </motion.div>
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 20 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 0.5, delay: i * 0.1 }}
+                                            className="border-b border-white/10 pb-12 hover:border-primary/50 transition-colors duration-500"
+                                        >
+                                            <div className="flex justify-between items-center">
+                                                <h3 className="text-2xl md:text-5xl font-light tracking-tight group-hover:text-white transition-colors">
+                                                    {item}
+                                                </h3>
+                                                <span className="text-primary text-xl opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0 duration-300">
+                                                    →
+                                                </span>
+                                            </div>
+                                        </motion.div>
+                                    </Link>
                                 ))}
                                 <div className="mt-8">
                                     <Link to="/expertise" className="inline-flex items-center gap-2 text-primary uppercase tracking-widest text-sm hover:text-white transition-colors hover:gap-4 duration-300">
@@ -137,7 +144,7 @@ const AboutPage = () => {
                 </section>
 
                 {/* 5. Minimal CTA */}
-                <section className="py-32 md:py-48 px-6 md:px-20 max-w-[1800px] mx-auto text-center">
+                <section className="py-32 md:py-48 px-6 md:px-20 max-w-[1800px] mx-auto text-center relative z-10">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}

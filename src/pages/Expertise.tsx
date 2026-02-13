@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Footer from '../components/Footer';
 import { services, sectors } from '../data/services';
 import { ArrowUpRight } from 'lucide-react';
@@ -40,7 +41,18 @@ const TechCircle = ({ isActive, title }: { isActive: boolean; title: string }) =
 };
 
 const Expertise = () => {
+    const [searchParams] = useSearchParams();
     const [activeTab, setActiveTab] = useState(0);
+
+    useEffect(() => {
+        const tabParam = searchParams.get('tab');
+        if (tabParam) {
+            const index = services.findIndex(s => s.title === tabParam);
+            if (index !== -1) {
+                setActiveTab(index);
+            }
+        }
+    }, [searchParams]);
 
     return (
         <div className="min-h-screen bg-transparent text-secondary">
