@@ -35,7 +35,7 @@ const BackgroundAnimation = () => {
 
             ctx.lineWidth = 2;
             ctx.shadowBlur = 20;
-            ctx.shadowColor = '#FF4500'; // Orange glow
+            ctx.shadowColor = '#ee7e4b'; // Soft Orange glow
 
             // Draw multiple sine waves
             for (let i = 0; i < 5; i++) {
@@ -52,7 +52,7 @@ const BackgroundAnimation = () => {
                 }
 
                 const alpha = 0.5 - (i * 0.1); // Fade out outer waves
-                ctx.strokeStyle = `rgba(255, 69, 0, ${alpha})`;
+                ctx.strokeStyle = `rgba(238, 126, 75, ${alpha})`;
                 ctx.stroke();
             }
 

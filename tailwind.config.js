@@ -9,7 +9,7 @@ export default {
       colors: {
         background: '#262626', // Updated Black
         black: '#262626', // Override default black
-        primary: '#FF4500', // Vibrant Orange
+        primary: '#ee7e4b', // Soft Orange
         secondary: '#F5E6D3', // Light Skin
       },
       fontFamily: {
