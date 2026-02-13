@@ -20,7 +20,7 @@ const Contact = () => {
                 <meta name="description" content="Get in touch with Vanguard for PR, communications, and brand strategy inquiries." />
             </Helmet>
 
-            <div className="pt-32 px-6 md:px-20 min-h-screen max-w-7xl mx-auto mb-20 relative">
+            <div className="pt-32 px-5 md:px-10 lg:px-20 min-h-screen max-w-[1200px] mx-auto mb-20 relative">
                 {/* Glowing Background Element */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-96 bg-primary/5 blur-[120px] rounded-full pointer-events-none -z-10" />
 
@@ -43,7 +43,7 @@ const Contact = () => {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.2, duration: 0.8 }}
                     >
-                        <form onSubmit={handleSubmit} className="space-y-10">
+                        <form onSubmit={handleSubmit} className="space-y-12">
                             {/* Honeypot Spam Protection */}
                             <input type="text" name="_gotcha" style={{ display: 'none' }} />
 
@@ -64,7 +64,7 @@ const Contact = () => {
                                             <input
                                                 type="text"
                                                 name="name"
-                                                className="w-full bg-transparent border-b border-white/20 py-4 text-xl md:text-2xl text-secondary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-white/20"
+                                                className="w-full bg-transparent border-b border-white/20 py-6 text-xl md:text-2xl text-secondary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-white/20"
                                                 placeholder="Name"
                                                 required
                                             />
@@ -76,7 +76,7 @@ const Contact = () => {
                                             <input
                                                 type="email"
                                                 name="email"
-                                                className="w-full bg-transparent border-b border-white/20 py-4 text-xl md:text-2xl text-secondary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-white/20"
+                                                className="w-full bg-transparent border-b border-white/20 py-6 text-xl md:text-2xl text-secondary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-white/20"
                                                 placeholder="Email"
                                                 required
                                             />
@@ -88,7 +88,7 @@ const Contact = () => {
                                             <textarea
                                                 name="message"
                                                 rows={1}
-                                                className="w-full bg-transparent border-b border-white/20 py-4 text-xl md:text-2xl text-secondary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-white/20 resize-none min-h-[60px]"
+                                                className="w-full bg-transparent border-b border-white/20 py-6 text-xl md:text-2xl text-secondary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-white/20 resize-none min-h-[80px]"
                                                 placeholder="Message"
                                                 required
                                             />
@@ -178,19 +178,21 @@ const Contact = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 1 }}
-                className="text-center py-20 bg-gradient-to-b from-transparent to-background/50 border-b border-white/5"
+                className="py-32 px-6 md:px-20 lg:px-32 bg-transparent border-t border-white/5"
             >
-                <div className="max-w-4xl mx-auto px-6">
-                    <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tight text-white mb-6 drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
-                        Welcome to a world of <span className="text-primary italic">potential</span>
-                    </h2>
+                <div className="max-w-[1200px] mx-auto">
+                    <div className="flex flex-col items-start gap-6">
+                        <h2 className="text-2xl md:text-3xl font-light text-white tracking-wide">
+                            Welcome to a world of <span className="text-primary italic">potential</span>
+                        </h2>
 
-                    <div className="flex items-center justify-center gap-4 md:gap-8 text-sm md:text-lg uppercase tracking-[0.3em] text-secondary/60">
-                        <span className="hover:text-primary hover:drop-shadow-[0_0_8px_var(--color-primary)] transition-all cursor-default duration-300">Lebanon</span>
-                        <span className="text-primary/40">•</span>
-                        <span className="hover:text-primary hover:drop-shadow-[0_0_8px_var(--color-primary)] transition-all cursor-default duration-300">Qatar</span>
-                        <span className="text-primary/40">•</span>
-                        <span className="hover:text-primary hover:drop-shadow-[0_0_8px_var(--color-primary)] transition-all cursor-default duration-300">Iraq</span>
+                        <div className="flex items-center gap-6 text-xs md:text-sm uppercase tracking-[0.2em] text-secondary/60 font-medium">
+                            <span className="hover:text-primary transition-colors duration-300">Lebanon</span>
+                            <span className="text-primary/40">•</span>
+                            <span className="hover:text-primary transition-colors duration-300">Qatar</span>
+                            <span className="text-primary/40">•</span>
+                            <span className="hover:text-primary transition-colors duration-300">Iraq</span>
+                        </div>
                     </div>
                 </div>
             </motion.div>
