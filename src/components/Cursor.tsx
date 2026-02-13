@@ -45,7 +45,7 @@ const Cursor = () => {
                 x: mousePosition.x - 16,
                 y: mousePosition.y - 16,
                 scale: isHovered ? 1.5 : 1,
-                backgroundColor: isHovered ? "#FF5500" : "transparent"
+                backgroundColor: isHovered ? "#ee7e4b" : "transparent"
             }}
             transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }}
         >
