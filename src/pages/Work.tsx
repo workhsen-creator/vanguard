@@ -103,7 +103,7 @@ const ProjectItem = ({ project }: { project: typeof projects[0] }) => {
 
 const Work = () => {
     return (
-        <div className="min-h-screen bg-background text-secondary">
+        <div className="min-h-screen bg-transparent text-secondary">
             <main className="px-6 md:px-12 lg:px-24 pt-40 pb-20">
                 {/* Page Header */}
                 <header className="mb-32 md:mb-48">
