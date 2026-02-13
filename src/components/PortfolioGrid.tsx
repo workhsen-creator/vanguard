@@ -59,19 +59,8 @@ const PortfolioGrid = () => {
                             transition={{ duration: 0.8, delay: index * 0.1 }}
                             onHoverStart={() => setHoveredIndex(index)}
                             onHoverEnd={() => setHoveredIndex(null)}
-                            className="group relative aspect-[4/3] overflow-hidden cursor-pointer bg-secondary/5"
+                            className="group relative aspect-[4/3] overflow-hidden cursor-pointer bg-secondary"
                         >
-                            {/* Image background with gradient */}
-                            <div
-                                className="absolute inset-0 transition-transform duration-700 group-hover:scale-110"
-                                style={{
-                                    background: `linear-gradient(135deg, ${item.color}20, ${item.color}40)`,
-                                }}
-                            />
-
-                            {/* Overlay */}
-                            <div className="absolute inset-0 bg-background/40 group-hover:bg-background/80 transition-all duration-500" />
-
                             {/* Content */}
                             <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-between">
                                 {/* Category tag */}
@@ -84,7 +73,7 @@ const PortfolioGrid = () => {
                                     transition={{ duration: 0.3 }}
                                     className="self-start"
                                 >
-                                    <span className="text-primary text-sm uppercase tracking-wider font-bold border border-primary/30 px-4 py-2 inline-block">
+                                    <span className="text-background text-sm uppercase tracking-wider font-bold border border-background/30 px-4 py-2 inline-block">
                                         /{item.category}
                                     </span>
                                 </motion.div>
@@ -96,7 +85,7 @@ const PortfolioGrid = () => {
                                         animate={{
                                             opacity: hoveredIndex === index ? 1 : 0.8,
                                         }}
-                                        className="text-3xl md:text-4xl lg:text-5xl font-bold text-secondary mb-6 leading-tight"
+                                        className="text-3xl md:text-4xl lg:text-5xl font-bold text-background mb-6 leading-tight"
                                     >
                                         {item.title}
                                     </motion.h3>
@@ -108,7 +97,7 @@ const PortfolioGrid = () => {
                                             x: hoveredIndex === index ? 0 : -20
                                         }}
                                         transition={{ duration: 0.3 }}
-                                        className="inline-flex items-center gap-2 text-secondary text-lg font-bold uppercase tracking-wider group-hover:gap-4 transition-all duration-300"
+                                        className="inline-flex items-center gap-2 text-background text-lg font-bold uppercase tracking-wider group-hover:gap-4 transition-all duration-300"
                                     >
                                         <span>Coming Soon</span>
                                         <ArrowUpRight size={24} />
