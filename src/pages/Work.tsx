@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 // Project Data
@@ -105,8 +104,6 @@ const ProjectItem = ({ project }: { project: typeof projects[0] }) => {
 const Work = () => {
     return (
         <div className="min-h-screen bg-background text-secondary">
-            <Navbar />
-
             <main className="px-6 md:px-12 lg:px-24 pt-40 pb-20">
                 {/* Page Header */}
                 <header className="mb-32 md:mb-48">
