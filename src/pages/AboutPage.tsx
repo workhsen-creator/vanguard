@@ -24,7 +24,7 @@ const AboutPage = () => {
                         transition={{ duration: 1, ease: 'easeOut' }}
                         className="text-center"
                     >
-                        <span className="block text-primary text-3xl md:text-5xl tracking-widest uppercase mb-6 md:mb-10 font-bold">
+                        <span className="inline-block text-primary text-5xl md:text-7xl tracking-widest uppercase mb-6 md:mb-10 font-bold border-b-4 border-primary pb-2">
                             Our Vision
                         </span>
                         <h1 className="text-2xl md:text-4xl lg:text-5xl leading-[1.2] font-medium tracking-tight max-w-4xl mx-auto">
