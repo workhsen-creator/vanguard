@@ -22,11 +22,12 @@ const AboutPage = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, ease: 'easeOut' }}
+                        className="text-center"
                     >
                         <span className="block text-primary text-sm md:text-base tracking-widest uppercase mb-6 md:mb-10 font-bold">
                             Our Vision
                         </span>
-                        <h1 className="text-3xl md:text-6xl lg:text-7xl leading-[1.1] font-bold tracking-tight max-w-5xl">
+                        <h1 className="text-3xl md:text-6xl lg:text-7xl leading-[1.1] font-bold tracking-tight max-w-5xl mx-auto">
                             To be the leading PR and communications agency in the MENA region, driving impactful change through creativity, innovation, and <span className="text-primary">trusted partnerships.</span>
                         </h1>
                     </motion.div>
