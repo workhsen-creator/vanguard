@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 
 const services = [
     { name: 'Consumer & Brand', id: 'consumer-brand' },
@@ -47,6 +49,20 @@ const Hero = () => {
                             </motion.h1>
                         </div>
                     ))}
+                </motion.div>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                    className="mt-12"
+                >
+                    <Link
+                        to="/expertise"
+                        className="inline-flex items-center gap-2 text-primary uppercase tracking-widest text-sm hover:text-white transition-colors hover:gap-4 duration-300"
+                    >
+                        Explore <ArrowRight size={20} />
+                    </Link>
                 </motion.div>
             </div>
 
