@@ -1,58 +1,140 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Footer from '../components/Footer';
 import { services, sectors } from '../data/services';
 import { ArrowUpRight } from 'lucide-react';
 
-const TechCircle = ({ isActive, title }: { isActive: boolean; title: string }) => {
+/* ─── Easing tokens ─── */
+const EASE_EDITORIAL: [number, number, number, number] = [0.22, 0.61, 0.36, 1];
+const EASE_OUT: [number, number, number, number] = [0.0, 0.0, 0.2, 1];
+
+/* ─── Gradient Sweep Overlay ─── */
+const GradientSweep = ({ trigger }: { trigger: number }) => {
     return (
-        <div className="relative w-64 h-64 md:w-96 md:h-96 flex items-center justify-center">
-            {/* Outer Ring */}
-            <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-0 border border-white/10 rounded-full border-dashed"
-            />
-
-            {/* Middle Rotating Ring */}
-            <motion.div
-                animate={{ rotate: -360 }}
-                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-4 border border-primary/20 rounded-full"
-            />
-
-            {/* Active Indicator Ring */}
-            <motion.div
-                initial={false}
-                animate={{ scale: isActive ? 1 : 0.9, opacity: isActive ? 1 : 0.5 }}
-                transition={{ duration: 0.5 }}
-                className="absolute inset-12 border-2 border-primary/50 rounded-full"
-            />
-
-            {/* Core & Title */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center z-10 p-8">
-                <h3 className="text-xl md:text-3xl font-bold text-white text-center leading-tight tracking-tight">
-                    {title}
-                </h3>
-            </div>
-        </div>
+        <motion.span
+            key={trigger}
+            initial={{ opacity: 0, x: '-100%' }}
+            animate={{ opacity: [0, 0.08, 0.08, 0], x: ['−100%', '-30%', '30%', '100%'] }}
+            transition={{ duration: 0.8, ease: 'easeInOut' }}
+            style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(90deg, transparent 0%, #ee7e4b 40%, #ee7e4b 60%, transparent 100%)',
+                pointerEvents: 'none',
+                mixBlendMode: 'screen',
+            }}
+            aria-hidden="true"
+        />
     );
 };
 
+/* ─── Expertise Tab Button ─── */
+const ExpertiseTab = ({
+    title,
+    isActive,
+    onClick,
+    reducedMotion,
+}: {
+    title: string;
+    isActive: boolean;
+    onClick: () => void;
+    reducedMotion: boolean | null;
+}) => {
+    const [sweepKey, setSweepKey] = useState(0);
+
+    useEffect(() => {
+        if (isActive) {
+            setSweepKey((k) => k + 1);
+        }
+    }, [isActive]);
+
+    return (
+        <button
+            onClick={onClick}
+            className="relative text-left py-4 md:py-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        >
+            {/* Title text */}
+            <motion.span
+                className="block text-lg md:text-2xl uppercase tracking-widest font-bold whitespace-nowrap overflow-hidden"
+                animate={{
+                    x: isActive ? 10 : 0,
+                    letterSpacing: isActive ? '-0.02em' : '0.1em',
+                    color: isActive ? '#ee7e4b' : 'rgba(255,249,240,0.35)',
+                    filter: isActive ? 'brightness(1.15)' : 'brightness(1)',
+                }}
+                transition={{
+                    duration: reducedMotion ? 0 : 0.4,
+                    ease: EASE_EDITORIAL,
+                }}
+                style={{ position: 'relative' }}
+            >
+                {title}
+
+                {/* Gradient sweep — only when active */}
+                {isActive && !reducedMotion && <GradientSweep trigger={sweepKey} />}
+            </motion.span>
+
+            {/* Orange center-expanding line */}
+            <motion.span
+                className="absolute bottom-0 left-0 right-0 h-[1.5px] origin-center"
+                style={{ background: '#ee7e4b' }}
+                initial={false}
+                animate={{
+                    scaleX: isActive ? 1 : 0,
+                    opacity: isActive ? 1 : 0,
+                }}
+                transition={{
+                    duration: reducedMotion ? 0 : 0.4,
+                    ease: EASE_EDITORIAL,
+                }}
+            />
+        </button>
+    );
+};
+
+/* ─── Main Page ─── */
 const Expertise = () => {
     const [searchParams] = useSearchParams();
     const [activeTab, setActiveTab] = useState(0);
+    const reducedMotion = useReducedMotion();
 
     useEffect(() => {
         const tabParam = searchParams.get('tab');
         if (tabParam) {
-            const index = services.findIndex(s => s.title === tabParam);
+            const index = services.findIndex((s) => s.title === tabParam);
             if (index !== -1) {
                 setActiveTab(index);
             }
         }
     }, [searchParams]);
+
+    const handleTabClick = useCallback((index: number) => {
+        setActiveTab(index);
+    }, []);
+
+    /* ─── Animation variants ─── */
+    const dur = reducedMotion ? 0 : 1; // multiplier
+
+    const contentExit = {
+        opacity: 0,
+        y: 10,
+        filter: 'blur(2px)',
+        transition: { duration: 0.3 * dur, ease: EASE_OUT },
+    };
+
+    const contentInitial = {
+        opacity: 0,
+        y: 20,
+        filter: 'blur(4px)',
+    };
+
+    const contentAnimate = {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        transition: { duration: 0.6 * dur, ease: EASE_OUT },
+    };
 
     return (
         <div className="min-h-screen bg-transparent text-secondary">
@@ -70,84 +152,78 @@ const Expertise = () => {
                     </h1>
                 </motion.div>
 
-                {/* Navigation Tabs */}
+                {/* ─── Navigation Tabs ─── */}
                 <div className="border-b border-white/10 mb-16">
-                    <div className="grid grid-cols-2 gap-x-12 gap-y-8 w-full pb-8">
+                    <div className="grid grid-cols-2 gap-x-12 gap-y-2 w-full pb-2">
                         {services.map((service, index) => (
-                            <button
+                            <ExpertiseTab
                                 key={index}
-                                onClick={() => setActiveTab(index)}
-                                className={`relative text-lg md:text-2xl uppercase tracking-widest font-bold py-4 transition-colors duration-300 text-left ${activeTab === index ? 'text-primary' : 'text-secondary/40 hover:text-secondary'
-                                    }`}
-                            >
-                                {service.title}
-                                {activeTab === index && (
-                                    <motion.div
-                                        layoutId="activeTabUnderline"
-                                        className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary"
-                                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                    />
-                                )}
-                            </button>
+                                title={service.title}
+                                isActive={activeTab === index}
+                                onClick={() => handleTabClick(index)}
+                                reducedMotion={reducedMotion}
+                            />
                         ))}
                     </div>
                 </div>
 
-                {/* Content Area */}
-                <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 pb-20">
-
-                    {/* Visual Side (Left) */}
-                    <div className="lg:col-span-5 flex items-center justify-center lg:justify-start">
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={activeTab}
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.8 }}
-                                transition={{ duration: 0.5 }}
+                {/* ─── Content Area (Full Width) ─── */}
+                <div className="flex-1 pb-20">
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={activeTab}
+                            initial={contentInitial}
+                            animate={contentAnimate}
+                            exit={contentExit}
+                            className="max-w-4xl"
+                        >
+                            {/* Description paragraph */}
+                            <motion.p
+                                className="text-xl md:text-2xl leading-relaxed text-secondary/80 font-light mb-12"
+                                initial={{ opacity: 0, y: 20, filter: 'blur(4px)' }}
+                                animate={{
+                                    opacity: 1,
+                                    y: 0,
+                                    filter: 'blur(0px)',
+                                    transition: {
+                                        duration: 0.6 * dur,
+                                        ease: EASE_OUT,
+                                        delay: 0.05,
+                                    },
+                                }}
                             >
-                                <TechCircle isActive={true} title={services[activeTab].title} />
-                            </motion.div>
-                        </AnimatePresence>
-                    </div>
+                                {services[activeTab].description}
+                            </motion.p>
 
-                    {/* Text Content (Right) */}
-                    <div className="lg:col-span-7 flex flex-col justify-center">
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={activeTab}
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
-                                transition={{ duration: 0.5 }}
-                            >
-
-                                <p className="text-xl md:text-2xl leading-relaxed text-secondary/80 font-light mb-12">
-                                    {services[activeTab].description}
-                                </p>
-
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8">
-                                    {services[activeTab].items.map((item, i) => (
-                                        <motion.div
-                                            key={i}
-                                            initial={{ opacity: 0, y: 10 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: 0.2 + (i * 0.1) }}
-                                            className="flex items-center gap-3 group"
-                                        >
-                                            <div className="w-1.5 h-1.5 rounded-full bg-primary/50 group-hover:bg-primary transition-colors" />
-                                            <span className="text-lg text-secondary/60 group-hover:text-secondary transition-colors">
-                                                {item}
-                                            </span>
-                                        </motion.div>
-                                    ))}
-                                </div>
-                            </motion.div>
-                        </AnimatePresence>
-                    </div>
+                            {/* Bullet points — staggered horizontal reveal */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8">
+                                {services[activeTab].items.map((item, i) => (
+                                    <motion.div
+                                        key={i}
+                                        initial={{ opacity: 0, x: 10 }}
+                                        animate={{
+                                            opacity: 1,
+                                            x: 0,
+                                            transition: {
+                                                duration: 0.35 * dur,
+                                                ease: EASE_OUT,
+                                                delay: 0.2 + i * 0.08,
+                                            },
+                                        }}
+                                        className="flex items-center gap-3 group"
+                                    >
+                                        <div className="w-1.5 h-1.5 rounded-full bg-primary/50 group-hover:bg-primary transition-colors" />
+                                        <span className="text-lg text-secondary/60 group-hover:text-secondary transition-colors">
+                                            {item}
+                                        </span>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </motion.div>
+                    </AnimatePresence>
                 </div>
 
-                {/* Sectors Section (Kept simpler but matching style) */}
+                {/* ─── Sectors Section ─── */}
                 <div className="mt-20 border-t border-white/10 pt-20 pb-32">
                     <h2 className="text-4xl md:text-5xl font-bold uppercase tracking-tighter mb-16 text-center">
                         Sectors
