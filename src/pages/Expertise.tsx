@@ -1,5 +1,5 @@
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Footer from '../components/Footer';
 import { services, sectors } from '../data/services';
@@ -9,20 +9,27 @@ import { ArrowUpRight } from 'lucide-react';
 const EASE_EDITORIAL: [number, number, number, number] = [0.22, 0.61, 0.36, 1];
 const EASE_OUT: [number, number, number, number] = [0.0, 0.0, 0.2, 1];
 
-/* ─── Gradient Sweep Overlay ─── */
+/* ─── Gradient Sweep Overlay ───
+   A soft orange highlight that sweeps once across the active title.
+   Opacity peaks at 8% — "inspiration passing through." */
 const GradientSweep = ({ trigger }: { trigger: number }) => {
     return (
         <motion.span
             key={trigger}
-            initial={{ opacity: 0, x: '-100%' }}
-            animate={{ opacity: [0, 0.08, 0.08, 0], x: ['−100%', '-30%', '30%', '100%'] }}
+            initial={{ opacity: 0, x: '-110%' }}
+            animate={{
+                opacity: [0, 0.08, 0.08, 0],
+                x: ['-110%', '-30%', '30%', '110%'],
+            }}
             transition={{ duration: 0.8, ease: 'easeInOut' }}
             style={{
                 position: 'absolute',
                 inset: 0,
-                background: 'linear-gradient(90deg, transparent 0%, #ee7e4b 40%, #ee7e4b 60%, transparent 100%)',
-                pointerEvents: 'none',
-                mixBlendMode: 'screen',
+                background:
+                    'linear-gradient(90deg, transparent 0%, #ee7e4b 35%, #ee7e4b 65%, transparent 100%)',
+                pointerEvents: 'none' as const,
+                mixBlendMode: 'screen' as const,
+                willChange: 'transform, opacity',
             }}
             aria-hidden="true"
         />
@@ -42,43 +49,60 @@ const ExpertiseTab = ({
     reducedMotion: boolean | null;
 }) => {
     const [sweepKey, setSweepKey] = useState(0);
+    const [isHovered, setIsHovered] = useState(false);
+    const prevActiveRef = useRef(isActive);
 
+    // Only trigger sweep when becoming active (not on initial render)
     useEffect(() => {
-        if (isActive) {
+        if (isActive && !prevActiveRef.current) {
             setSweepKey((k) => k + 1);
         }
+        prevActiveRef.current = isActive;
     }, [isActive]);
+
+    // Determine text color: active = orange, hovered = light, default = dim
+    const textColor = isActive
+        ? '#ee7e4b'
+        : isHovered
+            ? 'rgba(255,249,240,0.8)'
+            : 'rgba(255,249,240,0.35)';
 
     return (
         <button
             onClick={onClick}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
             className="relative text-left py-4 md:py-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
             {/* Title text */}
             <motion.span
-                className="block text-lg md:text-2xl uppercase tracking-widest font-bold whitespace-nowrap overflow-hidden"
+                className="block text-lg md:text-2xl uppercase font-bold whitespace-nowrap"
+                style={{ position: 'relative', overflow: 'hidden' }}
                 animate={{
                     x: isActive ? 10 : 0,
                     letterSpacing: isActive ? '-0.02em' : '0.1em',
-                    color: isActive ? '#ee7e4b' : 'rgba(255,249,240,0.35)',
-                    filter: isActive ? 'brightness(1.15)' : 'brightness(1)',
+                    color: textColor,
+                    opacity: isActive ? 1 : isHovered ? 0.9 : 0.6,
                 }}
                 transition={{
                     duration: reducedMotion ? 0 : 0.4,
                     ease: EASE_EDITORIAL,
                 }}
-                style={{ position: 'relative' }}
             >
                 {title}
 
-                {/* Gradient sweep — only when active */}
+                {/* Gradient sweep — fires once on activation */}
                 {isActive && !reducedMotion && <GradientSweep trigger={sweepKey} />}
             </motion.span>
 
-            {/* Orange center-expanding line */}
+            {/* Orange center-expanding highlight line */}
             <motion.span
-                className="absolute bottom-0 left-0 right-0 h-[1.5px] origin-center"
-                style={{ background: '#ee7e4b' }}
+                className="absolute bottom-0 left-0 right-0 h-[1.5px]"
+                style={{
+                    background: '#ee7e4b',
+                    transformOrigin: 'center',
+                    willChange: 'transform, opacity',
+                }}
                 initial={false}
                 animate={{
                     scaleX: isActive ? 1 : 0,
@@ -113,9 +137,10 @@ const Expertise = () => {
         setActiveTab(index);
     }, []);
 
-    /* ─── Animation variants ─── */
-    const dur = reducedMotion ? 0 : 1; // multiplier
+    /* ─── Duration multiplier: 0 when reduced-motion preferred ─── */
+    const dur = reducedMotion ? 0 : 1;
 
+    /* ─── Exit: fade out + slide down 10px + blur, 300ms ─── */
     const contentExit = {
         opacity: 0,
         y: 10,
@@ -123,12 +148,14 @@ const Expertise = () => {
         transition: { duration: 0.3 * dur, ease: EASE_OUT },
     };
 
+    /* ─── Enter initial: invisible, 20px below, blurred ─── */
     const contentInitial = {
         opacity: 0,
         y: 20,
         filter: 'blur(4px)',
     };
 
+    /* ─── Enter animate: fade in + slide up + blur clears, 600ms ─── */
     const contentAnimate = {
         opacity: 1,
         y: 0,
@@ -175,9 +202,10 @@ const Expertise = () => {
                             initial={contentInitial}
                             animate={contentAnimate}
                             exit={contentExit}
+                            style={{ willChange: 'transform, opacity, filter' }}
                             className="max-w-4xl"
                         >
-                            {/* Description paragraph */}
+                            {/* Description paragraph — text emerging from depth */}
                             <motion.p
                                 className="text-xl md:text-2xl leading-relaxed text-secondary/80 font-light mb-12"
                                 initial={{ opacity: 0, y: 20, filter: 'blur(4px)' }}
@@ -223,7 +251,7 @@ const Expertise = () => {
                     </AnimatePresence>
                 </div>
 
-                {/* ─── Sectors Section ─── */}
+                {/* ─── Sectors Section (untouched) ─── */}
                 <div className="mt-20 border-t border-white/10 pt-20 pb-32">
                     <h2 className="text-4xl md:text-5xl font-bold uppercase tracking-tighter mb-16 text-center">
                         Sectors
