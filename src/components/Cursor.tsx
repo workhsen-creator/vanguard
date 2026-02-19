@@ -40,7 +40,7 @@ const Cursor = () => {
 
     return (
         <motion.div
-            className="fixed top-0 left-0 w-8 h-8 rounded-full border border-primary pointer-events-none z-[40] hidden md:block mix-blend-normal"
+            className="fixed top-0 left-0 w-8 h-8 rounded-full border border-primary pointer-events-none z-[100] hidden md:block mix-blend-normal"
             animate={{
                 x: mousePosition.x - 16,
                 y: mousePosition.y - 16,
