@@ -1,258 +1,315 @@
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { motion, useReducedMotion, useInView } from 'framer-motion';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Footer from '../components/Footer';
 import { services, sectors } from '../data/services';
 import { ArrowUpRight } from 'lucide-react';
 
-/* ─── Easing tokens ─── */
+/* ─────────────────────────────────────────────
+   EASING & TIMING TOKENS
+   ───────────────────────────────────────────── */
 const EASE_EDITORIAL: [number, number, number, number] = [0.22, 0.61, 0.36, 1];
-const EASE_OUT: [number, number, number, number] = [0.0, 0.0, 0.2, 1];
 
-/* ─── Gradient Sweep Overlay ───
-   A soft orange highlight that sweeps once across the active title.
-   Opacity peaks at 8% — "inspiration passing through." */
-const GradientSweep = ({ trigger }: { trigger: number }) => {
-    return (
-        <motion.span
-            key={trigger}
-            initial={{ opacity: 0, x: '-110%' }}
-            animate={{
-                opacity: [0, 0.08, 0.08, 0],
-                x: ['-110%', '-30%', '30%', '110%'],
-            }}
-            transition={{ duration: 0.8, ease: 'easeInOut' }}
-            style={{
-                position: 'absolute',
-                inset: 0,
-                background:
-                    'linear-gradient(90deg, transparent 0%, #ee7e4b 35%, #ee7e4b 65%, transparent 100%)',
-                pointerEvents: 'none' as const,
-                mixBlendMode: 'screen' as const,
-                willChange: 'transform, opacity',
-            }}
-            aria-hidden="true"
-        />
-    );
-};
+/* ─────────────────────────────────────────────
+   REVEAL PATTERNS
+   Each service block enters the viewport
+   with a different directional animation.
+   ───────────────────────────────────────────── */
+const REVEAL_VARIANTS: Array<{ initial: Record<string, number>; animate: Record<string, number> }> = [
+    { initial: { x: -60, opacity: 0 }, animate: { x: 0, opacity: 1 } },   // 1 → slide from left
+    { initial: { x: 60, opacity: 0 }, animate: { x: 0, opacity: 1 } },    // 2 → slide from right
+    { initial: { y: 40, opacity: 0 }, animate: { y: 0, opacity: 1 } },    // 3 → fade up
+    { initial: { scale: 0.96, opacity: 0 }, animate: { scale: 1, opacity: 1 } }, // 4 → scale in
+];
 
-/* ─── Expertise Tab Button ─── */
-const ExpertiseTab = ({
-    title,
-    isActive,
-    onClick,
-    reducedMotion,
-}: {
-    title: string;
-    isActive: boolean;
-    onClick: () => void;
+/* ─────────────────────────────────────────────
+   SERVICE BLOCK
+   Glass-panel storytelling block for each
+   service category. Animates once on scroll.
+   ───────────────────────────────────────────── */
+interface ServiceBlockProps {
+    service: { title: string; description: string; items: string[] };
+    index: number;
     reducedMotion: boolean | null;
-}) => {
-    const [sweepKey, setSweepKey] = useState(0);
-    const [isHovered, setIsHovered] = useState(false);
-    const prevActiveRef = useRef(isActive);
+    blockRef: (el: HTMLDivElement | null) => void;
+}
 
-    // Only trigger sweep when becoming active (not on initial render)
-    useEffect(() => {
-        if (isActive && !prevActiveRef.current) {
-            setSweepKey((k) => k + 1);
-        }
-        prevActiveRef.current = isActive;
-    }, [isActive]);
+const ServiceBlock = ({ service, index, reducedMotion, blockRef }: ServiceBlockProps) => {
+    const internalRef = useRef<HTMLDivElement>(null);
+    const isInView = useInView(internalRef, { once: true, margin: '0px 0px -120px 0px' });
 
-    // Determine text color: active = orange, hovered = light, default = dim
-    const textColor = isActive
-        ? '#ee7e4b'
-        : isHovered
-            ? 'rgba(255,249,240,0.8)'
-            : 'rgba(255,249,240,0.35)';
+    const variant = REVEAL_VARIANTS[index % REVEAL_VARIANTS.length];
+    const shouldAnimate = !reducedMotion;
+    const isVisible = shouldAnimate ? isInView : true;
+
+    // Merge refs
+    const setRefs = useCallback(
+        (el: HTMLDivElement | null) => {
+            (internalRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
+            blockRef(el);
+        },
+        [blockRef],
+    );
 
     return (
-        <button
-            onClick={onClick}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            className="relative text-left py-4 md:py-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        <motion.div
+            ref={setRefs}
+            initial={shouldAnimate ? variant.initial : false}
+            animate={isVisible ? variant.animate : variant.initial}
+            transition={{
+                duration: shouldAnimate ? 0.7 : 0,
+                ease: EASE_EDITORIAL,
+            }}
+            style={{ willChange: shouldAnimate ? 'transform, opacity' : 'auto' }}
+            className="relative group"
         >
-            {/* Title text */}
-            <motion.span
-                className="block text-lg md:text-2xl uppercase font-bold whitespace-nowrap"
-                style={{ position: 'relative', overflow: 'hidden' }}
-                animate={{
-                    x: isActive ? 10 : 0,
-                    letterSpacing: isActive ? '-0.02em' : '0.1em',
-                    color: textColor,
-                    opacity: isActive ? 1 : isHovered ? 0.9 : 0.6,
+            {/* ── Glass panel ── */}
+            <div
+                className="rounded-2xl transition-shadow duration-500"
+                style={{
+                    background: 'rgba(255,255,255,0.03)',
+                    backdropFilter: 'blur(6px)',
+                    WebkitBackdropFilter: 'blur(6px)',
+                    border: '1px solid rgba(255,140,0,0.2)',
+                    padding: 'clamp(32px, 5vw, 72px)',
+                    boxShadow: '0 0 0px transparent',
                 }}
-                transition={{
-                    duration: reducedMotion ? 0 : 0.4,
-                    ease: EASE_EDITORIAL,
+                onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLDivElement).style.boxShadow =
+                        '0 0 40px rgba(238,126,75,0.06)';
+                }}
+                onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLDivElement).style.boxShadow = '0 0 0px transparent';
                 }}
             >
-                {title}
+                {/* ── Service number ── */}
+                <span className="block text-sm font-mono text-primary/40 uppercase tracking-[0.3em] mb-6">
+                    {String(index + 1).padStart(2, '0')}
+                </span>
 
-                {/* Gradient sweep — fires once on activation */}
-                {isActive && !reducedMotion && <GradientSweep trigger={sweepKey} />}
-            </motion.span>
+                {/* ── Title + orange underline ── */}
+                <div className="relative mb-8 inline-block">
+                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tighter text-white leading-[1.1]">
+                        {service.title}
+                    </h2>
+                    {/* Orange underline — scaleX 0 → 1 */}
+                    <motion.div
+                        className="h-[2px] mt-3 origin-left"
+                        style={{ background: '#ee7e4b' }}
+                        initial={{ scaleX: 0, opacity: 0 }}
+                        animate={
+                            isVisible
+                                ? { scaleX: 1, opacity: 1 }
+                                : { scaleX: 0, opacity: 0 }
+                        }
+                        transition={{
+                            duration: shouldAnimate ? 0.6 : 0,
+                            ease: EASE_EDITORIAL,
+                            delay: shouldAnimate ? 0.3 : 0,
+                        }}
+                    />
+                </div>
 
-            {/* Orange center-expanding highlight line */}
-            <motion.span
-                className="absolute bottom-0 left-0 right-0 h-[1.5px]"
-                style={{
-                    background: '#ee7e4b',
-                    transformOrigin: 'center',
-                    willChange: 'transform, opacity',
-                }}
-                initial={false}
-                animate={{
-                    scaleX: isActive ? 1 : 0,
-                    opacity: isActive ? 1 : 0,
-                }}
-                transition={{
-                    duration: reducedMotion ? 0 : 0.4,
-                    ease: EASE_EDITORIAL,
-                }}
-            />
-        </button>
+                {/* ── Description ── */}
+                <motion.p
+                    className="text-lg md:text-xl lg:text-2xl leading-relaxed text-secondary/70 font-light max-w-3xl mb-12"
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={
+                        isVisible
+                            ? { opacity: 1, y: 0 }
+                            : { opacity: 0, y: 16 }
+                    }
+                    transition={{
+                        duration: shouldAnimate ? 0.6 : 0,
+                        ease: EASE_EDITORIAL,
+                        delay: shouldAnimate ? 0.25 : 0,
+                    }}
+                >
+                    {service.description}
+                </motion.p>
+
+                {/* ── Bullet items — staggered reveal ── */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-5 gap-x-10">
+                    {service.items.map((item, i) => (
+                        <motion.div
+                            key={i}
+                            className="flex items-center gap-3 group/item"
+                            initial={{ opacity: 0, x: 10 }}
+                            animate={
+                                isVisible
+                                    ? { opacity: 1, x: 0 }
+                                    : { opacity: 0, x: 10 }
+                            }
+                            transition={{
+                                duration: shouldAnimate ? 0.4 : 0,
+                                ease: EASE_EDITORIAL,
+                                delay: shouldAnimate ? 0.4 + i * 0.08 : 0,
+                            }}
+                        >
+                            <div className="w-1.5 h-1.5 rounded-full bg-primary/50 group-hover/item:bg-primary transition-colors flex-shrink-0" />
+                            <span className="text-base md:text-lg text-secondary/55 group-hover/item:text-secondary transition-colors duration-300">
+                                {item}
+                            </span>
+                        </motion.div>
+                    ))}
+                </div>
+            </div>
+        </motion.div>
     );
 };
 
-/* ─── Main Page ─── */
+/* ─────────────────────────────────────────────
+   SCROLL PROGRESS INDICATOR
+   Fixed sidebar on desktop showing which
+   service block is currently in viewport.
+   ───────────────────────────────────────────── */
+interface ProgressIndicatorProps {
+    activeIndex: number;
+    reducedMotion: boolean | null;
+}
+
+const ScrollProgressIndicator = ({ activeIndex, reducedMotion }: ProgressIndicatorProps) => {
+    return (
+        <div className="hidden lg:flex fixed right-8 xl:right-12 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-5">
+            {services.map((service, i) => {
+                const isActive = i === activeIndex;
+                return (
+                    <a
+                        key={i}
+                        href={`#service-${i}`}
+                        className="flex items-center gap-3 group/nav no-underline"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            document.getElementById(`service-${i}`)?.scrollIntoView({
+                                behavior: reducedMotion ? 'auto' : 'smooth',
+                                block: 'center',
+                            });
+                        }}
+                    >
+                        {/* Service name */}
+                        <span
+                            className="text-xs uppercase tracking-[0.15em] font-medium transition-all duration-300 whitespace-nowrap"
+                            style={{
+                                color: isActive ? '#ee7e4b' : 'rgba(255,249,240,0.25)',
+                                opacity: isActive ? 1 : 0.7,
+                            }}
+                        >
+                            {service.title}
+                        </span>
+
+                        {/* Dot indicator */}
+                        <motion.div
+                            className="rounded-full flex-shrink-0"
+                            animate={{
+                                width: isActive ? 8 : 4,
+                                height: isActive ? 8 : 4,
+                                backgroundColor: isActive
+                                    ? '#ee7e4b'
+                                    : 'rgba(255,249,240,0.2)',
+                            }}
+                            transition={{
+                                duration: reducedMotion ? 0 : 0.3,
+                                ease: EASE_EDITORIAL,
+                            }}
+                        />
+                    </a>
+                );
+            })}
+        </div>
+    );
+};
+
+/* ─────────────────────────────────────────────
+   EXPERTISE PAGE — MAIN COMPONENT
+   ───────────────────────────────────────────── */
 const Expertise = () => {
-    const [searchParams] = useSearchParams();
-    const [activeTab, setActiveTab] = useState(0);
     const reducedMotion = useReducedMotion();
+    const [activeBlockIndex, setActiveBlockIndex] = useState(0);
+    const blockRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+    /* ── Store refs for each service block ── */
+    const setBlockRef = useCallback(
+        (index: number) => (el: HTMLDivElement | null) => {
+            blockRefs.current[index] = el;
+        },
+        [],
+    );
+
+    /* ── IntersectionObserver for progress indicator ── */
     useEffect(() => {
-        const tabParam = searchParams.get('tab');
-        if (tabParam) {
-            const index = services.findIndex((s) => s.title === tabParam);
-            if (index !== -1) {
-                setActiveTab(index);
-            }
-        }
-    }, [searchParams]);
+        const elements = blockRefs.current.filter(Boolean) as HTMLDivElement[];
+        if (elements.length === 0) return;
 
-    const handleTabClick = useCallback((index: number) => {
-        setActiveTab(index);
-    }, []);
+        const observer = new IntersectionObserver(
+            (entries) => {
+                // Find the entry most visible or closest to center
+                let bestIndex = activeBlockIndex;
+                let bestRatio = 0;
 
-    /* ─── Duration multiplier: 0 when reduced-motion preferred ─── */
-    const dur = reducedMotion ? 0 : 1;
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && entry.intersectionRatio > bestRatio) {
+                        const idx = elements.indexOf(entry.target as HTMLDivElement);
+                        if (idx !== -1) {
+                            bestRatio = entry.intersectionRatio;
+                            bestIndex = idx;
+                        }
+                    }
+                });
 
-    /* ─── Exit: fade out + slide down 10px + blur, 300ms ─── */
-    const contentExit = {
-        opacity: 0,
-        y: 10,
-        filter: 'blur(2px)',
-        transition: { duration: 0.3 * dur, ease: EASE_OUT },
-    };
+                if (bestRatio > 0) {
+                    setActiveBlockIndex(bestIndex);
+                }
+            },
+            {
+                threshold: [0.1, 0.3, 0.5, 0.7],
+                rootMargin: '-20% 0px -20% 0px',
+            },
+        );
 
-    /* ─── Enter initial: invisible, 20px below, blurred ─── */
-    const contentInitial = {
-        opacity: 0,
-        y: 20,
-        filter: 'blur(4px)',
-    };
+        elements.forEach((el) => observer.observe(el));
+        return () => observer.disconnect();
+    }, [activeBlockIndex]);
 
-    /* ─── Enter animate: fade in + slide up + blur clears, 600ms ─── */
-    const contentAnimate = {
-        opacity: 1,
-        y: 0,
-        filter: 'blur(0px)',
-        transition: { duration: 0.6 * dur, ease: EASE_OUT },
-    };
+    /* ── Memoize services list to avoid re-renders ── */
+    const servicesList = useMemo(() => services, []);
 
     return (
         <div className="min-h-screen bg-transparent text-secondary">
-            <div className="pt-32 px-6 md:px-12 lg:px-24 max-w-[1800px] mx-auto min-h-screen flex flex-col">
+            {/* Progress Indicator (fixed, desktop only) */}
+            <ScrollProgressIndicator
+                activeIndex={activeBlockIndex}
+                reducedMotion={reducedMotion}
+            />
 
-                {/* Page Header */}
+            <div className="pt-32 px-6 md:px-12 lg:px-24 max-w-[1800px] mx-auto flex flex-col">
+
+                {/* ─── Page Header ─── */}
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="mb-16 md:mb-24"
+                    className="mb-24 md:mb-32"
                 >
                     <h1 className="text-6xl md:text-8xl font-bold tracking-tighter uppercase mb-8">
                         Our <span className="text-primary">Expertise</span>
                     </h1>
                 </motion.div>
 
-                {/* ─── Navigation Tabs ─── */}
-                <div className="border-b border-white/10 mb-16">
-                    <div className="grid grid-cols-2 gap-x-12 gap-y-2 w-full pb-2">
-                        {services.map((service, index) => (
-                            <ExpertiseTab
-                                key={index}
-                                title={service.title}
-                                isActive={activeTab === index}
-                                onClick={() => handleTabClick(index)}
+                {/* ─── Vertical Storytelling Blocks ─── */}
+                <div className="flex flex-col" style={{ gap: 'clamp(80px, 10vw, 140px)' }}>
+                    {servicesList.map((service, index) => (
+                        <div key={index} id={`service-${index}`}>
+                            <ServiceBlock
+                                service={service}
+                                index={index}
                                 reducedMotion={reducedMotion}
+                                blockRef={setBlockRef(index)}
                             />
-                        ))}
-                    </div>
+                        </div>
+                    ))}
                 </div>
 
-                {/* ─── Content Area (Full Width) ─── */}
-                <div className="flex-1 pb-20">
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={activeTab}
-                            initial={contentInitial}
-                            animate={contentAnimate}
-                            exit={contentExit}
-                            style={{ willChange: 'transform, opacity, filter' }}
-                            className="max-w-4xl"
-                        >
-                            {/* Description paragraph — text emerging from depth */}
-                            <motion.p
-                                className="text-xl md:text-2xl leading-relaxed text-secondary/80 font-light mb-12"
-                                initial={{ opacity: 0, y: 20, filter: 'blur(4px)' }}
-                                animate={{
-                                    opacity: 1,
-                                    y: 0,
-                                    filter: 'blur(0px)',
-                                    transition: {
-                                        duration: 0.6 * dur,
-                                        ease: EASE_OUT,
-                                        delay: 0.05,
-                                    },
-                                }}
-                            >
-                                {services[activeTab].description}
-                            </motion.p>
-
-                            {/* Bullet points — staggered horizontal reveal */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8">
-                                {services[activeTab].items.map((item, i) => (
-                                    <motion.div
-                                        key={i}
-                                        initial={{ opacity: 0, x: 10 }}
-                                        animate={{
-                                            opacity: 1,
-                                            x: 0,
-                                            transition: {
-                                                duration: 0.35 * dur,
-                                                ease: EASE_OUT,
-                                                delay: 0.2 + i * 0.08,
-                                            },
-                                        }}
-                                        className="flex items-center gap-3 group"
-                                    >
-                                        <div className="w-1.5 h-1.5 rounded-full bg-primary/50 group-hover:bg-primary transition-colors" />
-                                        <span className="text-lg text-secondary/60 group-hover:text-secondary transition-colors">
-                                            {item}
-                                        </span>
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </motion.div>
-                    </AnimatePresence>
-                </div>
-
-                {/* ─── Sectors Section (untouched) ─── */}
-                <div className="mt-20 border-t border-white/10 pt-20 pb-32">
+                {/* ─── Sectors Section (unchanged) ─── */}
+                <div className="mt-32 border-t border-white/10 pt-20 pb-32">
                     <h2 className="text-4xl md:text-5xl font-bold uppercase tracking-tighter mb-16 text-center">
                         Sectors
                     </h2>
