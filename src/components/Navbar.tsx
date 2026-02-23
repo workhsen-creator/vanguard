@@ -60,7 +60,7 @@ const Navbar = () => {
                     y: isVisible ? 0 : -20
                 }}
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="fixed top-0 left-0 w-full z-50 flex justify-between items-center p-8 mix-blend-difference text-secondary pointer-events-none"
+                className="fixed top-0 left-0 w-full z-50 flex justify-between items-center p-8 pointer-events-none"
             >
                 <Link
                     to="/"
@@ -80,7 +80,7 @@ const Navbar = () => {
 
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="flex items-center gap-2 text-sm uppercase tracking-widest hover:text-primary transition-colors cursor-pointer group relative z-[60] pointer-events-auto"
+                    className="flex items-center gap-2 text-sm uppercase tracking-widest hover:text-primary transition-colors cursor-pointer group relative z-[60] pointer-events-auto mix-blend-difference text-secondary"
                 >
                     <span className="hidden md:block group-hover:-translate-x-1 transition-transform">
                         {isOpen ? 'Close' : 'Menu'}
