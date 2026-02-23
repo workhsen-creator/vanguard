@@ -13,7 +13,7 @@ import PageTransition from './components/PageTransition';
 
 // Pages
 import Home from './pages/Home';
-import Work from './pages/Work';
+
 import Expertise from './pages/Expertise';
 import StudioV from './pages/StudioV';
 import Store from './pages/Store';
@@ -94,7 +94,7 @@ function AppContent() {
         <main className="relative z-10 w-full overflow-hidden">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/work" element={<Work />} />
+
             <Route path="/expertise" element={<Expertise />} />
             <Route path="/studiov" element={<StudioV />} />
             <Route path="/store" element={<Store />} />

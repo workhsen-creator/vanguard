@@ -1,7 +1,7 @@
 import Hero from '../components/Hero';
 import VideoSection from '../components/VideoSection';
 import WelcomeSection from '../components/WelcomeSection';
-import PortfolioGrid from '../components/PortfolioGrid';
+
 import Footer from '../components/Footer';
 
 const Home = () => {
@@ -10,7 +10,7 @@ const Home = () => {
             <VideoSection />
             <Hero />
             <WelcomeSection />
-            <PortfolioGrid />
+
             <Footer />
         </div>
     );
