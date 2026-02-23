@@ -9,13 +9,13 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
     const [phase, setPhase] = useState<'welcome' | 'sweep' | 'reveal' | 'zoom' | 'exit'>('welcome');
 
     useEffect(() => {
-        // Total duration: 5 seconds
+        // Total duration: 5.1 seconds
         const timers = [
-            setTimeout(() => setPhase('sweep'), 500),    // Quick welcome flash
-            setTimeout(() => setPhase('reveal'), 1800),  // 1.3s sweep
-            setTimeout(() => setPhase('zoom'), 2500),    // Brief pause then zoom
-            setTimeout(() => setPhase('exit'), 3800),    // 1.3s zoom then exit
-            setTimeout(onComplete, 5000)                 // Fade out complete at 5s
+            setTimeout(() => setPhase('sweep'), 510),    // Quick welcome flash
+            setTimeout(() => setPhase('reveal'), 1836),  // 1.3s sweep
+            setTimeout(() => setPhase('zoom'), 2550),    // Brief pause then zoom
+            setTimeout(() => setPhase('exit'), 3876),    // 1.3s zoom then exit
+            setTimeout(onComplete, 5100)                 // Fade out complete at 5.1s
         ];
 
         return () => timers.forEach(clearTimeout);
