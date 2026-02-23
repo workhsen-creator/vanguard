@@ -90,14 +90,6 @@ const AboutTeaser = () => {
                     </Link>
                 </motion.div>
 
-                {/* Bottom decorative line */}
-                <motion.div
-                    initial={{ scaleX: 0 }}
-                    whileInView={{ scaleX: 1 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 1.2, delay: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                    className="mt-20 mx-auto w-32 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"
-                />
             </div>
         </section>
     );

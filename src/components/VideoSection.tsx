@@ -34,22 +34,6 @@ const VideoSection = () => {
                 <div className="absolute inset-0 bg-background/60" />
             </div>
 
-            {/* Orange decorative lines - positioned closer to text */}
-            <motion.div
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-[5%] md:left-[12%] lg:left-[18%] top-1/2 -translate-y-1/2 h-[2px] w-[18vw] md:w-[12vw] lg:w-[10vw] bg-gradient-to-r from-transparent via-primary to-primary origin-left"
-            />
-            <motion.div
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute right-[5%] md:right-[12%] lg:right-[18%] top-1/2 -translate-y-1/2 h-[2px] w-[18vw] md:w-[12vw] lg:w-[10vw] bg-gradient-to-l from-transparent via-primary to-primary origin-right"
-            />
-
             {/* Centered Text Content */}
             <motion.div
                 initial={{ opacity: 0, y: 30 }}
