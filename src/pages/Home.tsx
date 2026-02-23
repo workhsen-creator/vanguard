@@ -2,7 +2,6 @@ import Hero from '../components/Hero';
 import VideoSection from '../components/VideoSection';
 import WelcomeSection from '../components/WelcomeSection';
 import AboutTeaser from '../components/AboutTeaser';
-import ContactTeaser from '../components/ContactTeaser';
 import Footer from '../components/Footer';
 
 const Home = () => {
@@ -12,7 +11,6 @@ const Home = () => {
             <Hero />
             <WelcomeSection />
             <AboutTeaser />
-            <ContactTeaser />
             <Footer />
         </div>
     );
