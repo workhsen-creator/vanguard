@@ -1,5 +1,5 @@
 import { motion, useReducedMotion, useInView } from 'framer-motion';
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import Footer from '../components/Footer';
 import { services, sectors } from '../data/services';
 import { ArrowUpRight } from 'lucide-react';
@@ -30,10 +30,9 @@ interface ServiceBlockProps {
     service: { title: string; description: string; items: string[] };
     index: number;
     reducedMotion: boolean | null;
-    blockRef: (el: HTMLDivElement | null) => void;
 }
 
-const ServiceBlock = ({ service, index, reducedMotion, blockRef }: ServiceBlockProps) => {
+const ServiceBlock = ({ service, index, reducedMotion }: ServiceBlockProps) => {
     const internalRef = useRef<HTMLDivElement>(null);
     const isInView = useInView(internalRef, { once: true, margin: '0px 0px -120px 0px' });
 
@@ -41,18 +40,9 @@ const ServiceBlock = ({ service, index, reducedMotion, blockRef }: ServiceBlockP
     const shouldAnimate = !reducedMotion;
     const isVisible = shouldAnimate ? isInView : true;
 
-    // Merge refs
-    const setRefs = useCallback(
-        (el: HTMLDivElement | null) => {
-            (internalRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
-            blockRef(el);
-        },
-        [blockRef],
-    );
-
     return (
         <motion.div
-            ref={setRefs}
+            ref={internalRef}
             initial={shouldAnimate ? variant.initial : false}
             animate={isVisible ? variant.animate : variant.initial}
             transition={{
@@ -158,127 +148,17 @@ const ServiceBlock = ({ service, index, reducedMotion, blockRef }: ServiceBlockP
 };
 
 /* ─────────────────────────────────────────────
-   SCROLL PROGRESS INDICATOR
-   Fixed sidebar on desktop showing which
-   service block is currently in viewport.
-   ───────────────────────────────────────────── */
-interface ProgressIndicatorProps {
-    activeIndex: number;
-    reducedMotion: boolean | null;
-}
-
-const ScrollProgressIndicator = ({ activeIndex, reducedMotion }: ProgressIndicatorProps) => {
-    return (
-        <div className="hidden lg:flex fixed right-8 xl:right-12 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-5">
-            {services.map((service, i) => {
-                const isActive = i === activeIndex;
-                return (
-                    <a
-                        key={i}
-                        href={`#service-${i}`}
-                        className="flex items-center gap-3 group/nav no-underline"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            document.getElementById(`service-${i}`)?.scrollIntoView({
-                                behavior: reducedMotion ? 'auto' : 'smooth',
-                                block: 'center',
-                            });
-                        }}
-                    >
-                        {/* Service name */}
-                        <span
-                            className="text-xs uppercase tracking-[0.15em] font-medium transition-all duration-300 whitespace-nowrap"
-                            style={{
-                                color: isActive ? '#ee7e4b' : 'rgba(255,249,240,0.25)',
-                                opacity: isActive ? 1 : 0.7,
-                            }}
-                        >
-                            {service.title}
-                        </span>
-
-                        {/* Dot indicator */}
-                        <motion.div
-                            className="rounded-full flex-shrink-0"
-                            animate={{
-                                width: isActive ? 8 : 4,
-                                height: isActive ? 8 : 4,
-                                backgroundColor: isActive
-                                    ? '#ee7e4b'
-                                    : 'rgba(255,249,240,0.2)',
-                            }}
-                            transition={{
-                                duration: reducedMotion ? 0 : 0.3,
-                                ease: EASE_EDITORIAL,
-                            }}
-                        />
-                    </a>
-                );
-            })}
-        </div>
-    );
-};
-
-/* ─────────────────────────────────────────────
    EXPERTISE PAGE — MAIN COMPONENT
    ───────────────────────────────────────────── */
 const Expertise = () => {
     const reducedMotion = useReducedMotion();
-    const [activeBlockIndex, setActiveBlockIndex] = useState(0);
-    const blockRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-    /* ── Store refs for each service block ── */
-    const setBlockRef = useCallback(
-        (index: number) => (el: HTMLDivElement | null) => {
-            blockRefs.current[index] = el;
-        },
-        [],
-    );
-
-    /* ── IntersectionObserver for progress indicator ── */
-    useEffect(() => {
-        const elements = blockRefs.current.filter(Boolean) as HTMLDivElement[];
-        if (elements.length === 0) return;
-
-        const observer = new IntersectionObserver(
-            (entries) => {
-                // Find the entry most visible or closest to center
-                let bestIndex = activeBlockIndex;
-                let bestRatio = 0;
-
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting && entry.intersectionRatio > bestRatio) {
-                        const idx = elements.indexOf(entry.target as HTMLDivElement);
-                        if (idx !== -1) {
-                            bestRatio = entry.intersectionRatio;
-                            bestIndex = idx;
-                        }
-                    }
-                });
-
-                if (bestRatio > 0) {
-                    setActiveBlockIndex(bestIndex);
-                }
-            },
-            {
-                threshold: [0.1, 0.3, 0.5, 0.7],
-                rootMargin: '-20% 0px -20% 0px',
-            },
-        );
-
-        elements.forEach((el) => observer.observe(el));
-        return () => observer.disconnect();
-    }, [activeBlockIndex]);
 
     /* ── Memoize services list to avoid re-renders ── */
     const servicesList = useMemo(() => services, []);
 
     return (
         <div className="min-h-screen bg-transparent text-secondary">
-            {/* Progress Indicator (fixed, desktop only) */}
-            <ScrollProgressIndicator
-                activeIndex={activeBlockIndex}
-                reducedMotion={reducedMotion}
-            />
+
 
             <div className="pt-32 px-6 md:px-12 lg:px-24 max-w-[1800px] mx-auto flex flex-col">
 
@@ -302,7 +182,6 @@ const Expertise = () => {
                                 service={service}
                                 index={index}
                                 reducedMotion={reducedMotion}
-                                blockRef={setBlockRef(index)}
                             />
                         </div>
                     ))}
